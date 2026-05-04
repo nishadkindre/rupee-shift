@@ -55,42 +55,6 @@ RupeeShift answers that question across four real-world scenarios, using live ex
 
 ---
 
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js 18+ and npm 9+
-- A modern web browser
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/nishadkindre/rupee-shift.git
-   cd rupee-shift
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-
-4. **Open your browser**
-   Navigate to `http://localhost:5173`
-
-### Build for Production
-
-```bash
-npm run build
-npm run preview
-```
-
----
-
 ## 🛠️ Tech Stack
 
 | Layer | Technology |
