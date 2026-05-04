@@ -3,6 +3,25 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "description": "A web application for visualizing financial data and currency exchange rates",
+  "keywords": [
+    "finance",
+    "data-visualization",
+    "currency-exchange",
+    "dollar-appreciation",
+    "react",
+    "tailwindcss",
+    "recharts"
+  ],
+  "author": "Nishad Kindre <nishadkindre@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nishadkindre/rupee-shift.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nishadkindre/rupee-shift/issues"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
