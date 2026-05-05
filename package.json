@@ -15,6 +15,7 @@
   ],
   "author": "Nishad Kindre <nishadkindre@gmail.com>",
   "license": "MIT",
+  "homepage": "https://rupee-shift.vercel.app",
   "repository": {
     "type": "git",
     "url": "https://github.com/nishadkindre/rupee-shift.git"
