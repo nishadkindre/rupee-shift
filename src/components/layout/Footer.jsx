@@ -78,7 +78,8 @@ export default function Footer() {
             © {new Date().getFullYear()} RupeeShift. For informational purposes only — not financial advice.
           </p>
           <p className="font-sans text-xs text-ink-light">
-            Made with <span aria-label="love" role="img">💖</span> by{' '}
+            {/* Made with <span aria-label="love" role="img">❤️</span> by{' '} */}
+            Created by{' '}
             <a
               href="https://github.com/nishadkindre"
               target="_blank"
