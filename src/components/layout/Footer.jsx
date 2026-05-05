@@ -62,14 +62,14 @@ export default function Footer() {
             <p className="font-sans text-xs text-ink-muted leading-relaxed">
               A project built to make FX impact visible and understandable for everyday financial decisions.
             </p>
-            <a
+            {/* <a
               href="https://github.com/nishadkindre"
               target="_blank"
               rel="noopener noreferrer"
               className="font-sans text-sm text-amber-rupee hover:text-amber-deep transition-colors"
             >
               @nishadkindre
-            </a>
+            </a> */}
           </motion.div>
         </motion.div>
 
