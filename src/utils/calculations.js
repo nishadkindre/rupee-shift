@@ -9,7 +9,7 @@ export function calcSubsidiary({ annualINR, customMonthly, monthlyAverages, fySt
 
   const monthlyData = monthKeys.map((key, i) => {
     const rate = monthlyAverages[key] || fyStartRate;
-    const monthINR = customMonthly ? (customMonthly[i] || equalMonthly) : equalMonthly;
+    const monthINR = customMonthly ? customMonthly[i] || equalMonthly : equalMonthly;
     const monthlyUSD = monthINR / rate;
     const baselineUSD = monthINR / fyStartRate;
     const saving = baselineUSD - monthlyUSD;
@@ -20,7 +20,7 @@ export function calcSubsidiary({ annualINR, customMonthly, monthlyAverages, fySt
       monthlyUSD,
       baselineUSD,
       saving,
-      savingINR: saving * fyStartRate,
+      savingINR: saving * fyStartRate
     };
   });
 
@@ -45,7 +45,7 @@ export function calcSubsidiary({ annualINR, customMonthly, monthlyAverages, fySt
     totalUSDSaved,
     totalINREquivSaved,
     fyAppreciationPct,
-    breakEvenPct,
+    breakEvenPct
   };
 }
 
@@ -62,7 +62,12 @@ export function calcSubsidiaryIncrementTable({ annualINR, nextFYRate, fyStartRat
   const rows = [0, 5, 10, parseFloat(breakEvenPct.toFixed(2)), 12, 15, 18, 20, 25, 30];
   const unique = [...new Set(rows.map(r => parseFloat(r.toFixed(2))))].sort((a, b) => a - b);
   return unique.map(pct => {
-    const result = calcSubsidiaryIncrement({ annualINR, nextFYRate, fyStartRate, incrementPct: pct });
+    const result = calcSubsidiaryIncrement({
+      annualINR,
+      nextFYRate,
+      fyStartRate,
+      incrementPct: pct
+    });
     const isBreakEven = Math.abs(pct - parseFloat(breakEvenPct.toFixed(2))) < 0.1;
     let verdict;
     if (result.usdDiff < -10) verdict = 'savings';
@@ -84,7 +89,14 @@ export function calcITExporter({ annualUSD, annualINRCost, monthlyAverages, fySt
     const inrRealised = monthlyUSD * rate;
     const baselineINR = monthlyUSD * fyStartRate;
     const fxGain = inrRealised - baselineINR;
-    return { monthKey: key, rate, monthlyUSD, inrRealised, baselineINR, fxGain };
+    return {
+      monthKey: key,
+      rate,
+      monthlyUSD,
+      inrRealised,
+      baselineINR,
+      fxGain
+    };
   });
 
   let cumulative = 0;
@@ -114,7 +126,7 @@ export function calcITExporter({ annualUSD, annualINRCost, monthlyAverages, fySt
     breakEvenPct,
     flatRenewalINR,
     flatRenewalGain,
-    flatRenewalGainPct,
+    flatRenewalGainPct
   };
 }
 
@@ -128,7 +140,11 @@ export function calcITExporterHike({ annualINRCost, fxGainINR, hikePct }) {
 export function calcITExporterHikeTable({ annualINRCost, fxGainINR }) {
   const rows = [0, 5, 10, 12, 15, 18, 20, 25, 30];
   return rows.map(pct => {
-    const result = calcITExporterHike({ annualINRCost, fxGainINR, hikePct: pct });
+    const result = calcITExporterHike({
+      annualINRCost,
+      fxGainINR,
+      hikePct: pct
+    });
     let verdict;
     if (result.netMarginImpact > 0) verdict = 'gain';
     else if (Math.abs(result.netMarginImpact) < annualINRCost * 0.005) verdict = 'breakeven';
@@ -159,7 +175,14 @@ export function calcFreelancer({ monthlyUSD, monthlyAverages, fyStartRate, fyEnd
     const inrReceived = monthlyUSD * rate;
     const baselineINR = monthlyUSD * fyStartRate;
     const uplift = inrReceived - baselineINR;
-    return { monthKey: key, rate, monthlyUSD, inrReceived, baselineINR, uplift };
+    return {
+      monthKey: key,
+      rate,
+      monthlyUSD,
+      inrReceived,
+      baselineINR,
+      uplift
+    };
   });
 
   let cumulative = 0;
@@ -181,7 +204,7 @@ export function calcFreelancer({ monthlyUSD, monthlyAverages, fyStartRate, fyEnd
     annualFXUplift,
     holdAndConvertINR,
     holdUplift,
-    fyAppreciationPct,
+    fyAppreciationPct
   };
 }
 
@@ -198,13 +221,20 @@ export function calcFreelancerRateCard({ monthlyUSD, fyStartRate, nextFYRate, in
     effectiveINRGrowth,
     reversionAnnualINR,
     reversionLoss,
-    baselineAnnualINR,
+    baselineAnnualINR
   };
 }
 
 export function calcFreelancerRateCardTable({ monthlyUSD, fyStartRate, nextFYRate }) {
   const rows = [0, 5, 10, 15, 20, 25, 30, 40, 50];
-  return rows.map(pct => calcFreelancerRateCard({ monthlyUSD, fyStartRate, nextFYRate, increasePct: pct }));
+  return rows.map(pct =>
+    calcFreelancerRateCard({
+      monthlyUSD,
+      fyStartRate,
+      nextFYRate,
+      increasePct: pct
+    })
+  );
 }
 
 // ─── Scenario 4: INR Employee ─────────────────────────────────────────────────
@@ -217,7 +247,14 @@ export function calcINREmployee({ monthlyINR, billingRate, monthlyAverages, fySt
     const rate = monthlyAverages[key] || fyStartRate;
     const usdValue = monthlyINR / rate;
     const erosion = fyStartUSDSalary - usdValue;
-    return { monthKey: key, rate, monthlyINR, usdValue, baselineUSD: fyStartUSDSalary, erosion };
+    return {
+      monthKey: key,
+      rate,
+      monthlyINR,
+      usdValue,
+      baselineUSD: fyStartUSDSalary,
+      erosion
+    };
   });
 
   let cumErosion = 0;
@@ -242,7 +279,7 @@ export function calcINREmployee({ monthlyINR, billingRate, monthlyAverages, fySt
       companyFXGainMonthly,
       companyFXGainAnnual,
       breakEvenCostToCompany,
-      passThroughRatio: breakEvenPct > 0 ? (breakEvenCostToCompany / companyFXGainAnnual) * 100 : 0,
+      passThroughRatio: breakEvenPct > 0 ? (breakEvenCostToCompany / companyFXGainAnnual) * 100 : 0
     };
   }
 
@@ -253,7 +290,7 @@ export function calcINREmployee({ monthlyINR, billingRate, monthlyAverages, fySt
     fyStartUSDSalary,
     breakEvenPct,
     fyAppreciationPct,
-    passThroughData,
+    passThroughData
   };
 }
 
@@ -263,14 +300,25 @@ export function calcINREmployeeIncrement({ monthlyINR, fyStartRate, nextFYRate, 
   const fyStartUSDSalary = monthlyINR / fyStartRate;
   const realUSDChange = newUSDValue - fyStartUSDSalary;
   const realUSDChangePct = (realUSDChange / fyStartUSDSalary) * 100;
-  return { newMonthlyINR, newUSDValue, fyStartUSDSalary, realUSDChange, realUSDChangePct };
+  return {
+    newMonthlyINR,
+    newUSDValue,
+    fyStartUSDSalary,
+    realUSDChange,
+    realUSDChangePct
+  };
 }
 
 export function calcINREmployeeIncrementTable({ monthlyINR, fyStartRate, nextFYRate, breakEvenPct }) {
   const rows = [0, 2, 5, 8, 10, parseFloat(breakEvenPct.toFixed(2)), 12, 15, 18, 20, 25, 30];
   const unique = [...new Set(rows.map(r => parseFloat(r.toFixed(2))))].sort((a, b) => a - b);
   return unique.map(pct => {
-    const result = calcINREmployeeIncrement({ monthlyINR, fyStartRate, nextFYRate, incrementPct: pct });
+    const result = calcINREmployeeIncrement({
+      monthlyINR,
+      fyStartRate,
+      nextFYRate,
+      incrementPct: pct
+    });
     const isBreakEven = Math.abs(pct - parseFloat(breakEvenPct.toFixed(2))) < 0.1;
     let verdict;
     if (result.realUSDChange > 0.01) verdict = 'raise';

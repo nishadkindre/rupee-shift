@@ -25,7 +25,8 @@ export default function SliderControl({ label, min = 0, max = 50, step = 1, valu
             transition={{ duration: 0.18 }}
             className="font-mono text-sm font-bold bg-amber-light text-amber-rupee border border-amber-rupee/25 rounded-full px-3 py-0.5 min-w-[3rem] text-center"
           >
-            {value}{unit}
+            {value}
+            {unit}
           </motion.span>
         </AnimatePresence>
       </div>
@@ -43,8 +44,14 @@ export default function SliderControl({ label, min = 0, max = 50, step = 1, valu
         />
       </div>
       <div className="flex justify-between mt-1.5">
-        <span className="font-mono text-xs text-ink-faint">{min}{unit}</span>
-        <span className="font-mono text-xs text-ink-faint">{max}{unit}</span>
+        <span className="font-mono text-xs text-ink-faint">
+          {min}
+          {unit}
+        </span>
+        <span className="font-mono text-xs text-ink-faint">
+          {max}
+          {unit}
+        </span>
       </div>
     </div>
   );

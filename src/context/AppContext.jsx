@@ -12,34 +12,34 @@ const initialState = {
     fyStartRate: null,
     fyEndRate: null,
     loading: false,
-    error: null,
+    error: null
   },
   subsidiaryParams: {
     annualINR: 40_232_000,
     expenseType: 'equal',
     customMonthly: null,
     nextFYRate: null,
-    incrementPct: 10,
+    incrementPct: 10
   },
   itExporterParams: {
     annualUSD: 1_000_000,
     annualINRCost: 40_232_000,
     revenueType: 'equal',
     nextFYRate: null,
-    hikePct: 12,
+    hikePct: 12
   },
   freelancerParams: {
     monthlyUSD: 5_000,
     conversionTiming: 'same_month',
     nextFYRate: null,
-    rateIncreasePct: 10,
+    rateIncreasePct: 10
   },
   inrEmployeeParams: {
     monthlyINR: 85_600,
     billingRate: '',
     nextFYRate: null,
-    incrementPct: 12,
-  },
+    incrementPct: 12
+  }
 };
 
 function reducer(state, action) {
@@ -49,19 +49,44 @@ function reducer(state, action) {
     case 'SET_SCENARIO':
       return { ...state, activeScenario: action.payload };
     case 'SET_RATES_LOADING':
-      return { ...state, ratesData: { ...state.ratesData, loading: true, error: null } };
+      return {
+        ...state,
+        ratesData: { ...state.ratesData, loading: true, error: null }
+      };
     case 'SET_RATES_SUCCESS':
-      return { ...state, ratesData: { ...action.payload, loading: false, error: null } };
+      return {
+        ...state,
+        ratesData: { ...action.payload, loading: false, error: null }
+      };
     case 'SET_RATES_ERROR':
-      return { ...state, ratesData: { ...state.ratesData, loading: false, error: action.payload } };
+      return {
+        ...state,
+        ratesData: {
+          ...state.ratesData,
+          loading: false,
+          error: action.payload
+        }
+      };
     case 'UPDATE_SUBSIDIARY_PARAMS':
-      return { ...state, subsidiaryParams: { ...state.subsidiaryParams, ...action.payload } };
+      return {
+        ...state,
+        subsidiaryParams: { ...state.subsidiaryParams, ...action.payload }
+      };
     case 'UPDATE_IT_EXPORTER_PARAMS':
-      return { ...state, itExporterParams: { ...state.itExporterParams, ...action.payload } };
+      return {
+        ...state,
+        itExporterParams: { ...state.itExporterParams, ...action.payload }
+      };
     case 'UPDATE_FREELANCER_PARAMS':
-      return { ...state, freelancerParams: { ...state.freelancerParams, ...action.payload } };
+      return {
+        ...state,
+        freelancerParams: { ...state.freelancerParams, ...action.payload }
+      };
     case 'UPDATE_INR_EMPLOYEE_PARAMS':
-      return { ...state, inrEmployeeParams: { ...state.inrEmployeeParams, ...action.payload } };
+      return {
+        ...state,
+        inrEmployeeParams: { ...state.inrEmployeeParams, ...action.payload }
+      };
     default:
       return state;
   }
@@ -69,11 +94,7 @@ function reducer(state, action) {
 
 export function AppProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  return (
-    <AppContext.Provider value={{ state, dispatch }}>
-      {children}
-    </AppContext.Provider>
-  );
+  return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;
 }
 
 export function useAppContext() {

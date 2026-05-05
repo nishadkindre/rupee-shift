@@ -2,11 +2,7 @@ import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useAppContext } from '../../context/AppContext';
 import { FY_CONFIG } from '../../data/fyConfig';
-import {
-  calcFreelancer,
-  calcFreelancerRateCard,
-  calcFreelancerRateCardTable,
-} from '../../utils/calculations';
+import { calcFreelancer, calcFreelancerRateCard, calcFreelancerRateCardTable } from '../../utils/calculations';
 import { getFYMonthKeys } from '../../utils/rateHelpers';
 import { formatINR, formatUSD, formatRate, formatPct, monthKeyToLabel } from '../../utils/formatters';
 import { CHART_COLORS } from '../charts/chartUtils';
@@ -37,7 +33,7 @@ export default function FreelancerScenario() {
       monthlyAverages: ratesData.monthlyAverages,
       fyStartRate,
       fyEndRate,
-      fyConfig,
+      fyConfig
     });
   }, [freelancerParams.monthlyUSD, ratesData.monthlyAverages, fyStartRate, fyEndRate, fyConfig]);
 
@@ -47,13 +43,17 @@ export default function FreelancerScenario() {
       monthlyUSD: freelancerParams.monthlyUSD,
       fyStartRate,
       nextFYRate,
-      increasePct: freelancerParams.rateIncreasePct,
+      increasePct: freelancerParams.rateIncreasePct
     });
   }, [freelancerParams, fyStartRate, nextFYRate]);
 
   const rateCardTable = useMemo(() => {
     if (!fyStartRate) return [];
-    return calcFreelancerRateCardTable({ monthlyUSD: freelancerParams.monthlyUSD, fyStartRate, nextFYRate });
+    return calcFreelancerRateCardTable({
+      monthlyUSD: freelancerParams.monthlyUSD,
+      fyStartRate,
+      nextFYRate
+    });
   }, [freelancerParams.monthlyUSD, fyStartRate, nextFYRate]);
 
   if (!calc) return null;
@@ -65,22 +65,35 @@ export default function FreelancerScenario() {
       <div className="lg:w-[30%] lg:sticky lg:top-20 self-start">
         <ParamsPanel title="Scenario 3 of 4 · Freelancer">
           <ParamField label="Monthly billing (USD)">
-            <ParamInput value={freelancerParams.monthlyUSD} onChange={v => dispatch({ type: 'UPDATE_FREELANCER_PARAMS', payload: { monthlyUSD: v } })} prefix="$" min={0} />
+            <ParamInput
+              value={freelancerParams.monthlyUSD}
+              onChange={v =>
+                dispatch({
+                  type: 'UPDATE_FREELANCER_PARAMS',
+                  payload: { monthlyUSD: v }
+                })
+              }
+              prefix="$"
+              min={0}
+            />
           </ParamField>
 
           <ParamField label="When do you convert?">
             <div className="flex flex-col gap-2">
               {[
                 { key: 'same_month', label: 'Same month' },
-                { key: 'end_of_fy', label: 'End of FY (hold all year)' },
+                { key: 'end_of_fy', label: 'End of FY (hold all year)' }
               ].map(opt => (
                 <button
                   key={opt.key}
-                  onClick={() => dispatch({ type: 'UPDATE_FREELANCER_PARAMS', payload: { conversionTiming: opt.key } })}
+                  onClick={() =>
+                    dispatch({
+                      type: 'UPDATE_FREELANCER_PARAMS',
+                      payload: { conversionTiming: opt.key }
+                    })
+                  }
                   className={`text-xs font-sans py-2 px-3 rounded-lg border text-left transition-colors ${
-                    freelancerParams.conversionTiming === opt.key
-                      ? 'bg-ink text-cream border-ink'
-                      : 'border-ink-light/30 text-ink-muted hover:border-ink-muted'
+                    freelancerParams.conversionTiming === opt.key ? 'bg-ink text-cream border-ink' : 'border-ink-light/30 text-ink-muted hover:border-ink-muted'
                   } focus:outline-none focus:ring-2 focus:ring-amber-rupee`}
                 >
                   {opt.label}
@@ -90,7 +103,17 @@ export default function FreelancerScenario() {
           </ParamField>
 
           <ParamField label="Projected rate next FY (₹/$)">
-            <ParamInput value={nextFYRate} onChange={v => dispatch({ type: 'UPDATE_FREELANCER_PARAMS', payload: { nextFYRate: v } })} suffix="₹/$" min={0} />
+            <ParamInput
+              value={nextFYRate}
+              onChange={v =>
+                dispatch({
+                  type: 'UPDATE_FREELANCER_PARAMS',
+                  payload: { nextFYRate: v }
+                })
+              }
+              suffix="₹/$"
+              min={0}
+            />
           </ParamField>
 
           <SliderControl
@@ -98,7 +121,12 @@ export default function FreelancerScenario() {
             min={0}
             max={50}
             value={freelancerParams.rateIncreasePct}
-            onChange={v => dispatch({ type: 'UPDATE_FREELANCER_PARAMS', payload: { rateIncreasePct: v } })}
+            onChange={v =>
+              dispatch({
+                type: 'UPDATE_FREELANCER_PARAMS',
+                payload: { rateIncreasePct: v }
+              })
+            }
           />
         </ParamsPanel>
       </div>
@@ -141,7 +169,8 @@ export default function FreelancerScenario() {
         {freelancerParams.conversionTiming === 'end_of_fy' && (
           <div className="bg-info-light/40 border border-info/20 rounded-xl px-4 py-3">
             <p className="font-sans text-xs text-info-muted leading-relaxed">
-              <strong>Holding USD all year</strong> would have given you <strong className="font-mono">{formatINR(calc.holdAndConvertINR, { compact: true })}</strong> at the end-of-year rate of <strong className="font-mono">{formatRate(fyEndRate)}</strong> — capturing the full year's appreciation in one conversion.
+              <strong>Holding USD all year</strong> would have given you <strong className="font-mono">{formatINR(calc.holdAndConvertINR, { compact: true })}</strong> at the end-of-year rate of{' '}
+              <strong className="font-mono">{formatRate(fyEndRate)}</strong> — capturing the full year's appreciation in one conversion.
             </p>
           </div>
         )}
@@ -170,7 +199,9 @@ export default function FreelancerScenario() {
                 <thead>
                   <tr className="bg-cream-dark">
                     {['Month', 'Rate (₹/$)', 'USD billed', 'INR received', 'Baseline INR', 'Monthly uplift (₹)', 'Cumulative uplift'].map(h => (
-                      <th key={h} className={`${h === 'Month' ? 'text-left' : 'text-right'} px-3 py-2 font-sans text-xs font-semibold text-ink-light uppercase tracking-wider`}>{h}</th>
+                      <th key={h} className={`${h === 'Month' ? 'text-left' : 'text-right'} px-3 py-2 font-sans text-xs font-semibold text-ink-light uppercase tracking-wider`}>
+                        {h}
+                      </th>
                     ))}
                   </tr>
                 </thead>
@@ -210,11 +241,24 @@ export default function FreelancerScenario() {
         <div className="bg-gain-light/60 border border-gain/20 rounded-2xl p-5">
           <p className="font-display text-lg text-gain mb-1">"The invisible raise"</p>
           <p className="font-sans text-sm text-ink leading-relaxed">
-            You received <strong className="font-mono">{formatINR(calc.annualFXUplift, { compact: true })}</strong> more INR this year compared to what the same USD billing would have been worth in April {startYear}. You never negotiated for this. But you also never had to.
+            You received <strong className="font-mono">{formatINR(calc.annualFXUplift, { compact: true })}</strong> more INR this year compared to what the same USD billing would have been worth in
+            April {startYear}. You never negotiated for this. But you also never had to.
           </p>
           <p className="font-display text-lg text-amber-rupee mt-4 mb-1">"The reversion risk"</p>
           <p className="font-sans text-sm text-ink leading-relaxed">
-            If the rate returns to <strong className="font-mono">{formatRate(fyStartRate)}</strong>, your current billing of <strong className="font-mono">{formatUSD(freelancerParams.monthlyUSD)}/month</strong> would be worth <strong className="font-mono">{formatINR(freelancerParams.monthlyUSD * fyStartRate, { compact: false })}/month</strong> — <strong className="font-mono text-loss">{formatINR((calc.monthlyData[calc.monthlyData.length - 1]?.inrReceived || 0) - freelancerParams.monthlyUSD * fyStartRate, { compact: false })}</strong> less than today.
+            If the rate returns to <strong className="font-mono">{formatRate(fyStartRate)}</strong>, your current billing of{' '}
+            <strong className="font-mono">{formatUSD(freelancerParams.monthlyUSD)}/month</strong> would be worth{' '}
+            <strong className="font-mono">
+              {formatINR(freelancerParams.monthlyUSD * fyStartRate, {
+                compact: false
+              })}
+              /month
+            </strong>{' '}
+            —{' '}
+            <strong className="font-mono text-loss">
+              {formatINR((calc.monthlyData[calc.monthlyData.length - 1]?.inrReceived || 0) - freelancerParams.monthlyUSD * fyStartRate, { compact: false })}
+            </strong>{' '}
+            less than today.
           </p>
         </div>
 
@@ -223,12 +267,29 @@ export default function FreelancerScenario() {
           <p className="font-sans text-xs font-semibold tracking-widest uppercase text-ink-light mb-2">Rate Card Analysis</p>
           <InsightBanner>
             A <strong className="font-mono">{freelancerParams.rateIncreasePct}%</strong> USD rate increase at the new exchange rate gives you{' '}
-            <strong className="font-mono text-gain">{rateCardResult ? formatPct(rateCardResult.effectiveINRGrowth, { showSign: true }) : '—'}</strong>{' '}
+            <strong className="font-mono text-gain">
+              {rateCardResult
+                ? formatPct(rateCardResult.effectiveINRGrowth, {
+                    showSign: true
+                  })
+                : '—'}
+            </strong>{' '}
             more INR income than your FY start baseline — combining both the USD raise and the FX gain.
           </InsightBanner>
 
           <div className="mt-4 bg-white border border-ink-light/20 rounded-2xl p-5">
-            <SliderControl label="USD rate card increase %" min={0} max={50} value={freelancerParams.rateIncreasePct} onChange={v => dispatch({ type: 'UPDATE_FREELANCER_PARAMS', payload: { rateIncreasePct: v } })} />
+            <SliderControl
+              label="USD rate card increase %"
+              min={0}
+              max={50}
+              value={freelancerParams.rateIncreasePct}
+              onChange={v =>
+                dispatch({
+                  type: 'UPDATE_FREELANCER_PARAMS',
+                  payload: { rateIncreasePct: v }
+                })
+              }
+            />
             {rateCardResult && (
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
                 <MetricCard label="New Monthly USD" value={rateCardResult.newMonthlyUSD} formatter={v => formatUSD(v)} variant="info" />
@@ -247,7 +308,9 @@ export default function FreelancerScenario() {
                   <thead>
                     <tr className="bg-cream-dark">
                       {['USD increase', 'New USD/mo', 'New INR/mo', 'Annual INR uplift', 'Risk: INR/mo if rate reverts'].map(h => (
-                        <th key={h} className={`${h === 'USD increase' ? 'text-left' : 'text-right'} px-3 py-2 font-sans text-xs font-semibold text-ink-light uppercase tracking-wider`}>{h}</th>
+                        <th key={h} className={`${h === 'USD increase' ? 'text-left' : 'text-right'} px-3 py-2 font-sans text-xs font-semibold text-ink-light uppercase tracking-wider`}>
+                          {h}
+                        </th>
                       ))}
                     </tr>
                   </thead>
@@ -257,7 +320,11 @@ export default function FreelancerScenario() {
                         <td className="px-3 py-2 font-medium">{formatPct((row.newMonthlyUSD / freelancerParams.monthlyUSD - 1) * 100, { showSign: true })}</td>
                         <td className="px-3 py-2 text-right">{formatUSD(row.newMonthlyUSD)}</td>
                         <td className="px-3 py-2 text-right">{formatINR(row.newAnnualINR / 12)}</td>
-                        <td className="px-3 py-2 text-right text-gain">{formatINR(row.newAnnualINR - row.baselineAnnualINR, { compact: true })}</td>
+                        <td className="px-3 py-2 text-right text-gain">
+                          {formatINR(row.newAnnualINR - row.baselineAnnualINR, {
+                            compact: true
+                          })}
+                        </td>
                         <td className="px-3 py-2 text-right text-amber-rupee">{formatINR(row.reversionAnnualINR / 12)}</td>
                       </tr>
                     ))}

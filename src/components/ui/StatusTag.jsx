@@ -6,7 +6,7 @@ const variants = {
   savings: 'bg-gain-light text-gain border border-gain/20',
   costlier: 'bg-loss-light text-loss border border-loss/20',
   raise: 'bg-gain-light text-gain border border-gain/20',
-  paycut: 'bg-loss-light text-loss border border-loss/20',
+  paycut: 'bg-loss-light text-loss border border-loss/20'
 };
 
 const labels = {
@@ -17,17 +17,13 @@ const labels = {
   savings: 'Savings',
   costlier: 'Costlier',
   raise: '✓ Real Raise',
-  paycut: '⚠ Pay Cut',
+  paycut: '⚠ Pay Cut'
 };
 
 export default function StatusTag({ variant = 'neutral', children }) {
   const cls = variants[variant] || variants.neutral;
   return (
-    <span
-      className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${cls}`}
-      role="status"
-      aria-label={labels[variant] || String(children)}
-    >
+    <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${cls}`} role="status" aria-label={labels[variant] || String(children)}>
       {children || labels[variant]}
     </span>
   );

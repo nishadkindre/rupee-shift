@@ -22,15 +22,15 @@ export default function InsightStrip() {
         label: 'FX Movement',
         text: `The rupee weakened ${formatPct(Math.abs(appreciationPct))} against the dollar in ${fyConfig?.label} — from ${formatRate(fyStartRate)} to ${formatRate(fyEndRate)}.`,
         color: 'text-loss',
-        bg: 'bg-loss-light/60',
+        bg: 'bg-loss-light/60'
       },
       {
         id: 'break-even',
         label: 'Break-Even Hike',
         text: `An INR employee needed a ${formatPct(appreciationPct)} salary raise just to maintain the same USD purchasing power as April ${fyConfig?.startDate?.slice(0, 4)}.`,
         color: 'text-amber-rupee',
-        bg: 'bg-amber-light/50',
-      },
+        bg: 'bg-amber-light/50'
+      }
     ];
 
     if (activeScenario === 'subsidiary') {
@@ -39,7 +39,7 @@ export default function InsightStrip() {
         label: 'Subsidiary Impact',
         text: `On a ${formatINR(subsidiaryParams.annualINR, { compact: true })} payroll, a ${formatPct(appreciationPct)} FX shift means your dollar-denominated cost dropped by roughly ${formatPct(appreciationPct)} even if rupee costs held flat.`,
         color: 'text-gain',
-        bg: 'bg-gain-light/50',
+        bg: 'bg-gain-light/50'
       });
     }
 
@@ -49,7 +49,7 @@ export default function InsightStrip() {
         label: 'Exporter Margin',
         text: `IT exporters collecting $${(itExporterParams.annualUSD / 1_000).toFixed(0)}k annually saw silent margin expansion of ${formatPct(appreciationPct)} — no new contracts, no pricing renegotiation.`,
         color: 'text-info',
-        bg: 'bg-info-light/50',
+        bg: 'bg-info-light/50'
       });
     }
 
@@ -60,7 +60,7 @@ export default function InsightStrip() {
         label: 'Invisible Raise',
         text: `Your ${formatUSD(freelancerParams.monthlyUSD)}/month billing delivered ${formatINR(invisibleRaise, { compact: true })} extra INR this year — an invisible raise you never asked for.`,
         color: 'text-amber-rupee',
-        bg: 'bg-amber-light/50',
+        bg: 'bg-amber-light/50'
       });
     }
 
@@ -71,7 +71,7 @@ export default function InsightStrip() {
         label: 'USD Erosion',
         text: `Your ${formatINR(inrEmployeeParams.monthlyINR)}/month salary lost ${formatUSD(erosionUSD)} in annualised USD value over ${fyConfig?.label} — without any pay cut.`,
         color: 'text-loss',
-        bg: 'bg-loss-light/60',
+        bg: 'bg-loss-light/60'
       });
     }
 
@@ -80,7 +80,7 @@ export default function InsightStrip() {
       label: 'Data Source',
       text: `Exchange rates sourced from the European Central Bank via Frankfurter API. Monthly averages computed from daily fixing rates.`,
       color: 'text-ink-light',
-      bg: 'bg-surface-subtle',
+      bg: 'bg-surface-subtle'
     });
 
     return list;
@@ -101,15 +101,8 @@ export default function InsightStrip() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
         >
           {insights.map(insight => (
-            <motion.div
-              key={insight.id}
-              variants={VARIANTS.staggerItem}
-              transition={TRANSITIONS.normal}
-              className={`${insight.bg || 'bg-surface-subtle'} rounded-2xl p-5 border border-ink-base/8`}
-            >
-              <span className={`font-sans text-xs font-bold uppercase tracking-wider ${insight.color || 'text-white/60'} mb-2 block`}>
-                {insight.label}
-              </span>
+            <motion.div key={insight.id} variants={VARIANTS.staggerItem} transition={TRANSITIONS.normal} className={`${insight.bg || 'bg-surface-subtle'} rounded-2xl p-5 border border-ink-base/8`}>
+              <span className={`font-sans text-xs font-bold uppercase tracking-wider ${insight.color || 'text-white/60'} mb-2 block`}>{insight.label}</span>
               <p className="font-sans text-sm text-ink-muted leading-relaxed">{insight.text}</p>
             </motion.div>
           ))}

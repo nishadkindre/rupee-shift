@@ -19,13 +19,10 @@ export default function FYSelectorBar() {
   return (
     <div className="bg-white border-b border-ink-base/8 px-4 md:px-8 py-3">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6">
-
         {/* Label with icon */}
         <div className="flex items-center gap-1.5 shrink-0">
           <CalendarDays className="w-3.5 h-3.5 text-ink-light" />
-          <span className="font-sans text-xs font-semibold tracking-wider uppercase text-ink-light">
-            Financial Year
-          </span>
+          <span className="font-sans text-xs font-semibold tracking-wider uppercase text-ink-light">Financial Year</span>
         </div>
 
         {/* FY Pills */}
@@ -48,9 +45,7 @@ export default function FYSelectorBar() {
                 aria-label={`Select ${fy.label}`}
               >
                 {fy.shortLabel}
-                {fy.isDefault && (
-                  <span className={`ml-1 text-[10px] ${isActive ? 'opacity-80' : 'text-amber-rupee/60'}`}>★</span>
-                )}
+                {fy.isDefault && <span className={`ml-1 text-[10px] ${isActive ? 'opacity-80' : 'text-amber-rupee/60'}`}>★</span>}
               </motion.button>
             );
           })}

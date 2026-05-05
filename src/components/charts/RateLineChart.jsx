@@ -1,14 +1,11 @@
-import {
-  ResponsiveContainer, AreaChart, Area, XAxis, YAxis,
-  CartesianGrid, Tooltip,
-} from 'recharts';
+import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { CHART_COLORS, CustomTooltip } from './chartUtils';
 import { monthKeyToShort, formatRate } from '../../utils/formatters';
 
 export default function RateLineChart({ monthlyAverages, fyMonthKeys, title }) {
   const data = fyMonthKeys.map(key => ({
     month: monthKeyToShort(key),
-    rate: parseFloat((monthlyAverages[key] || 0).toFixed(4)),
+    rate: parseFloat((monthlyAverages[key] || 0).toFixed(4))
   }));
 
   return (
@@ -25,32 +22,28 @@ export default function RateLineChart({ monthlyAverages, fyMonthKeys, title }) {
           <CartesianGrid strokeDasharray="3 3" stroke="#EDE9E1" vertical={false} />
           <XAxis
             dataKey="month"
-            tick={{ fontFamily: 'DM Mono, monospace', fontSize: 11, fill: '#A39E98' }}
+            tick={{
+              fontFamily: 'DM Mono, monospace',
+              fontSize: 11,
+              fill: '#A39E98'
+            }}
             axisLine={false}
             tickLine={false}
           />
           <YAxis
             domain={['auto', 'auto']}
             tickFormatter={v => `₹${v.toFixed(0)}`}
-            tick={{ fontFamily: 'DM Mono, monospace', fontSize: 11, fill: '#A39E98' }}
+            tick={{
+              fontFamily: 'DM Mono, monospace',
+              fontSize: 11,
+              fill: '#A39E98'
+            }}
             axisLine={false}
             tickLine={false}
             width={50}
           />
-          <Tooltip
-            content={<CustomTooltip formatValue={v => formatRate(v)} />}
-          />
-          <Area
-            type="monotone"
-            dataKey="rate"
-            name="Rate (₹/$)"
-            stroke={CHART_COLORS.amber}
-            strokeWidth={2}
-            fill="url(#rateGradient)"
-            isAnimationActive
-            animationDuration={800}
-            dot={false}
-          />
+          <Tooltip content={<CustomTooltip formatValue={v => formatRate(v)} />} />
+          <Area type="monotone" dataKey="rate" name="Rate (₹/$)" stroke={CHART_COLORS.amber} strokeWidth={2} fill="url(#rateGradient)" isAnimationActive animationDuration={800} dot={false} />
         </AreaChart>
       </ResponsiveContainer>
     </div>

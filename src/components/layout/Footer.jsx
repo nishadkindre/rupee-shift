@@ -18,7 +18,7 @@ export default function Footer() {
           <motion.div variants={VARIANTS.staggerItem} transition={TRANSITIONS.normal} className="flex flex-col gap-4 lg:col-span-2">
             <div className="flex items-center gap-2">
               {/* <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-rupee to-amber-deep flex items-center justify-center"> */}
-                <RupeeShiftLogo size={24} />
+              <RupeeShiftLogo size={24} />
               {/* </div> */}
               <span className="font-sans text-base font-semibold tracking-tight">
                 Rupee<span className="text-amber-rupee">Shift</span>
@@ -51,17 +51,13 @@ export default function Footer() {
               Frankfurter API
               <ExternalLink size={11} className="opacity-60" />
             </a>
-            <p className="font-sans text-xs text-ink-light leading-relaxed">
-              Exchange rates published by the European Central Bank. Daily USD/INR fixing rates, monthly averaged.
-            </p>
+            <p className="font-sans text-xs text-ink-light leading-relaxed">Exchange rates published by the European Central Bank. Daily USD/INR fixing rates, monthly averaged.</p>
           </motion.div>
 
           {/* About */}
           <motion.div variants={VARIANTS.staggerItem} transition={TRANSITIONS.normal} className="flex flex-col gap-3">
             <p className="font-sans text-xs font-bold uppercase tracking-wider text-ink-light mb-1">About</p>
-            <p className="font-sans text-xs text-ink-muted leading-relaxed">
-              A project built to make FX impact visible and understandable for everyday financial decisions.
-            </p>
+            <p className="font-sans text-xs text-ink-muted leading-relaxed">A project built to make FX impact visible and understandable for everyday financial decisions.</p>
             {/* <a
               href="https://github.com/nishadkindre"
               target="_blank"
@@ -74,18 +70,11 @@ export default function Footer() {
         </motion.div>
 
         <div className="border-t border-ink-base/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
-          <p className="font-sans text-xs text-ink-light">
-            © {new Date().getFullYear()} RupeeShift. For informational purposes only — not financial advice.
-          </p>
+          <p className="font-sans text-xs text-ink-light">© {new Date().getFullYear()} RupeeShift. For informational purposes only — not financial advice.</p>
           <p className="font-sans text-xs text-ink-light">
             {/* Made with <span aria-label="love" role="img">❤️</span> by{' '} */}
             Created by{' '}
-            <a
-              href="https://github.com/nishadkindre"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-amber-rupee hover:text-amber-deep transition-colors"
-            >
+            <a href="https://github.com/nishadkindre" target="_blank" rel="noopener noreferrer" className="text-amber-rupee hover:text-amber-deep transition-colors">
               Nishad Kindre
             </a>
           </p>
@@ -94,4 +83,3 @@ export default function Footer() {
     </footer>
   );
 }
-

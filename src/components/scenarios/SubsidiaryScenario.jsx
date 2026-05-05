@@ -2,11 +2,7 @@ import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useAppContext } from '../../context/AppContext';
 import { FY_CONFIG } from '../../data/fyConfig';
-import {
-  calcSubsidiary,
-  calcSubsidiaryIncrement,
-  calcSubsidiaryIncrementTable,
-} from '../../utils/calculations';
+import { calcSubsidiary, calcSubsidiaryIncrement, calcSubsidiaryIncrementTable } from '../../utils/calculations';
 import { getFYMonthKeys } from '../../utils/rateHelpers';
 import { formatINR, formatUSD, formatRate, formatPct, monthKeyToLabel } from '../../utils/formatters';
 import { CHART_COLORS } from '../charts/chartUtils';
@@ -42,7 +38,7 @@ export default function SubsidiaryScenario() {
       fyStartRate,
       fyEndRate,
       nextFYRate,
-      fyConfig,
+      fyConfig
     });
   }, [subsidiaryParams, ratesData.monthlyAverages, fyStartRate, fyEndRate, nextFYRate, fyConfig]);
 
@@ -52,7 +48,7 @@ export default function SubsidiaryScenario() {
       annualINR: subsidiaryParams.annualINR,
       nextFYRate,
       fyStartRate,
-      incrementPct: subsidiaryParams.incrementPct,
+      incrementPct: subsidiaryParams.incrementPct
     });
   }, [calc, subsidiaryParams, fyStartRate, nextFYRate]);
 
@@ -62,7 +58,7 @@ export default function SubsidiaryScenario() {
       annualINR: subsidiaryParams.annualINR,
       nextFYRate,
       fyStartRate,
-      breakEvenPct: calc.breakEvenPct,
+      breakEvenPct: calc.breakEvenPct
     });
   }, [calc, subsidiaryParams.annualINR, fyStartRate, nextFYRate]);
 
@@ -78,7 +74,12 @@ export default function SubsidiaryScenario() {
           <ParamField label="Annual INR expense (₹)" hint="Total annual cost the parent must fund">
             <ParamInput
               value={subsidiaryParams.annualINR}
-              onChange={v => dispatch({ type: 'UPDATE_SUBSIDIARY_PARAMS', payload: { annualINR: v } })}
+              onChange={v =>
+                dispatch({
+                  type: 'UPDATE_SUBSIDIARY_PARAMS',
+                  payload: { annualINR: v }
+                })
+              }
               prefix="₹"
               min={0}
             />
@@ -89,11 +90,14 @@ export default function SubsidiaryScenario() {
               {['equal', 'custom'].map(opt => (
                 <button
                   key={opt}
-                  onClick={() => dispatch({ type: 'UPDATE_SUBSIDIARY_PARAMS', payload: { expenseType: opt } })}
+                  onClick={() =>
+                    dispatch({
+                      type: 'UPDATE_SUBSIDIARY_PARAMS',
+                      payload: { expenseType: opt }
+                    })
+                  }
                   className={`flex-1 text-xs font-sans py-2 rounded-lg border transition-colors ${
-                    subsidiaryParams.expenseType === opt
-                      ? 'bg-ink text-cream border-ink'
-                      : 'border-ink-light/30 text-ink-muted hover:border-ink-muted'
+                    subsidiaryParams.expenseType === opt ? 'bg-ink text-cream border-ink' : 'border-ink-light/30 text-ink-muted hover:border-ink-muted'
                   } focus:outline-none focus:ring-2 focus:ring-amber-rupee`}
                 >
                   {opt === 'equal' ? 'Monthly (equal)' : 'Custom split'}
@@ -111,7 +115,10 @@ export default function SubsidiaryScenario() {
                     onChange={v => {
                       const updated = [...(subsidiaryParams.customMonthly || Array(12).fill(subsidiaryParams.annualINR / 12))];
                       updated[i] = v;
-                      dispatch({ type: 'UPDATE_SUBSIDIARY_PARAMS', payload: { customMonthly: updated } });
+                      dispatch({
+                        type: 'UPDATE_SUBSIDIARY_PARAMS',
+                        payload: { customMonthly: updated }
+                      });
                     }}
                     prefix="₹"
                     min={0}
@@ -124,7 +131,12 @@ export default function SubsidiaryScenario() {
           <ParamField label="Projected rate for next FY (₹/$)" hint="Used for increment analysis">
             <ParamInput
               value={nextFYRate}
-              onChange={v => dispatch({ type: 'UPDATE_SUBSIDIARY_PARAMS', payload: { nextFYRate: v } })}
+              onChange={v =>
+                dispatch({
+                  type: 'UPDATE_SUBSIDIARY_PARAMS',
+                  payload: { nextFYRate: v }
+                })
+              }
               suffix="₹/$"
               min={0}
             />
@@ -136,7 +148,12 @@ export default function SubsidiaryScenario() {
             max={50}
             step={1}
             value={subsidiaryParams.incrementPct}
-            onChange={v => dispatch({ type: 'UPDATE_SUBSIDIARY_PARAMS', payload: { incrementPct: v } })}
+            onChange={v =>
+              dispatch({
+                type: 'UPDATE_SUBSIDIARY_PARAMS',
+                payload: { incrementPct: v }
+              })
+            }
           />
         </ParamsPanel>
       </div>
@@ -152,22 +169,14 @@ export default function SubsidiaryScenario() {
 
         {/* Insight Banner */}
         <InsightBanner>
-          Your India operations cost the parent company{' '}
-          <strong className="font-mono">{formatUSD(calc.totalActualUSD, { compact: true })}</strong> this year — {' '}
-          <strong className="font-mono text-gain">{formatUSD(calc.totalUSDSaved)}</strong> less than the{' '}
-          <strong className="font-mono">{formatUSD(calc.totalBaselineUSD, { compact: true })}</strong> budgeted at the April {startYear} rate of{' '}
-          <strong className="font-mono">{formatRate(fyStartRate)}</strong>.
-          This saving of{' '}
+          Your India operations cost the parent company <strong className="font-mono">{formatUSD(calc.totalActualUSD, { compact: true })}</strong> this year —{' '}
+          <strong className="font-mono text-gain">{formatUSD(calc.totalUSDSaved)}</strong> less than the <strong className="font-mono">{formatUSD(calc.totalBaselineUSD, { compact: true })}</strong>{' '}
+          budgeted at the April {startYear} rate of <strong className="font-mono">{formatRate(fyStartRate)}</strong>. This saving of{' '}
           <strong className="font-mono text-gain">{formatINR(calc.totalINREquivSaved, { compact: true })}</strong> required no renegotiation — it was delivered entirely by the rupee's depreciation.
         </InsightBanner>
 
         {/* Key Metrics */}
-        <motion.div
-          variants={VARIANTS.staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="grid grid-cols-2 lg:grid-cols-4 gap-3"
-        >
+        <motion.div variants={VARIANTS.staggerContainer} initial="hidden" animate="visible" className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           <motion.div variants={VARIANTS.staggerItem} transition={TRANSITIONS.normal}>
             <MetricCard label="USD Saved (FY)" value={calc.totalUSDSaved} formatter={v => formatUSD(v)} variant="gain" />
           </motion.div>
@@ -202,11 +211,7 @@ export default function SubsidiaryScenario() {
 
         <SectionCard>
           <div className="p-5">
-            <RateLineChart
-              monthlyAverages={ratesData.monthlyAverages}
-              fyMonthKeys={monthKeys}
-              title="USD/INR Exchange Rate (Monthly Average)"
-            />
+            <RateLineChart monthlyAverages={ratesData.monthlyAverages} fyMonthKeys={monthKeys} title="USD/INR Exchange Rate (Monthly Average)" />
           </div>
         </SectionCard>
 
@@ -276,8 +281,8 @@ export default function SubsidiaryScenario() {
           <h3 className="font-display text-xl md:text-2xl tracking-tight text-ink mb-4">Next FY Cost Projection</h3>
 
           <InsightBanner>
-            At <strong className="font-mono">{formatRate(nextFYRate)}</strong>, the break-even cost increase is{' '}
-            <strong className="font-mono text-amber-rupee">{formatPct(calc.breakEvenPct)}</strong>. Below this, your India operations are still cheaper in USD terms than FY{startYear}.
+            At <strong className="font-mono">{formatRate(nextFYRate)}</strong>, the break-even cost increase is <strong className="font-mono text-amber-rupee">{formatPct(calc.breakEvenPct)}</strong>.
+            Below this, your India operations are still cheaper in USD terms than FY{startYear}.
           </InsightBanner>
 
           {/* Slider */}
@@ -287,7 +292,12 @@ export default function SubsidiaryScenario() {
               min={0}
               max={50}
               value={subsidiaryParams.incrementPct}
-              onChange={v => dispatch({ type: 'UPDATE_SUBSIDIARY_PARAMS', payload: { incrementPct: v } })}
+              onChange={v =>
+                dispatch({
+                  type: 'UPDATE_SUBSIDIARY_PARAMS',
+                  payload: { incrementPct: v }
+                })
+              }
             />
 
             {/* Live cards */}
@@ -295,19 +305,10 @@ export default function SubsidiaryScenario() {
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
                 <MetricCard label="New Annual INR" value={incrementResult.newAnnualINR} formatter={v => formatINR(v, { compact: true })} variant="info" />
                 <MetricCard label="New Annual USD" value={incrementResult.newAnnualUSD} formatter={v => formatUSD(v, { compact: true })} variant="info" />
-                <MetricCard
-                  label="vs FY Start Baseline"
-                  value={incrementResult.usdDiff}
-                  formatter={v => formatUSD(v, { showSign: true })}
-                  variant={incrementResult.usdDiff <= 0 ? 'gain' : 'loss'}
-                />
+                <MetricCard label="vs FY Start Baseline" value={incrementResult.usdDiff} formatter={v => formatUSD(v, { showSign: true })} variant={incrementResult.usdDiff <= 0 ? 'gain' : 'loss'} />
                 <div className="bg-cream-dark border border-ink-light/20 rounded-xl p-4">
                   <p className="font-sans text-xs font-semibold tracking-widest uppercase text-ink-light mb-2">Verdict</p>
-                  <StatusTag variant={
-                    incrementResult.usdDiff < -10 ? 'savings'
-                    : Math.abs(incrementResult.usdDiff) <= 50 ? 'breakeven'
-                    : 'costlier'
-                  }>
+                  <StatusTag variant={incrementResult.usdDiff < -10 ? 'savings' : Math.abs(incrementResult.usdDiff) <= 50 ? 'breakeven' : 'costlier'}>
                     {incrementResult.usdDiff < -10 ? 'Still cheaper' : Math.abs(incrementResult.usdDiff) <= 50 ? 'Break-even' : 'Costlier than start'}
                   </StatusTag>
                 </div>
@@ -335,13 +336,18 @@ export default function SubsidiaryScenario() {
                     {incrementTable.map((row, i) => (
                       <tr key={i} className={`${row.isBreakEven ? 'bg-info-light/50' : i % 2 === 0 ? '' : 'bg-cream/50'}`}>
                         <td className="px-3 py-2 font-medium text-ink">
-                          {row.isBreakEven ? '★ ' : ''}{formatPct(row.pct, { decimals: row.isBreakEven ? 2 : 0 })}
+                          {row.isBreakEven ? '★ ' : ''}
+                          {formatPct(row.pct, {
+                            decimals: row.isBreakEven ? 2 : 0
+                          })}
                         </td>
                         <td className="px-3 py-2 text-right">{formatINR(row.newAnnualINR, { compact: true })}</td>
                         <td className="px-3 py-2 text-right">{formatUSD(row.newAnnualUSD, { compact: true })}</td>
                         <td className="px-3 py-2 text-right">{formatUSD(row.newAnnualUSD / 12)}</td>
                         <td className={`px-3 py-2 text-right font-medium ${row.usdDiff <= 0 ? 'text-gain' : 'text-loss'}`}>{formatUSD(row.usdDiff, { showSign: true })}</td>
-                        <td className="px-3 py-2 text-center"><StatusTag variant={row.verdict} /></td>
+                        <td className="px-3 py-2 text-center">
+                          <StatusTag variant={row.verdict} />
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -351,7 +357,11 @@ export default function SubsidiaryScenario() {
               {/* Increment Bar Chart */}
               <div className="mt-4">
                 <IncrementBarChart
-                  data={incrementTable.map(r => ({ label: `${r.pct.toFixed(0)}%`, annualUSD: r.newAnnualUSD, ...r }))}
+                  data={incrementTable.map(r => ({
+                    label: `${r.pct.toFixed(0)}%`,
+                    annualUSD: r.newAnnualUSD,
+                    ...r
+                  }))}
                   xKey="label"
                   barKey="annualUSD"
                   referenceValue={calc.totalBaselineUSD}

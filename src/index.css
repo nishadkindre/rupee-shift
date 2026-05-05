@@ -2,58 +2,60 @@
 
 @theme {
   /* Colors */
-  --color-cream: #FAF8F4;
-  --color-cream-dark: #F0EDE6;
-  --color-cream-deeper: #E8E3DB;
+  --color-cream: #faf8f4;
+  --color-cream-dark: #f0ede6;
+  --color-cream-deeper: #e8e3db;
 
   --color-ink: #181612;
   --color-ink-base: #181612;
-  --color-ink-muted: #5C5750;
-  --color-ink-light: #9C9690;
-  --color-ink-faint: #C8C3BC;
+  --color-ink-muted: #5c5750;
+  --color-ink-light: #9c9690;
+  --color-ink-faint: #c8c3bc;
 
-  --color-amber-rupee: #C8702A;
-  --color-amber-deep: #A85A20;
-  --color-amber-light: #F5E6D3;
-  --color-amber-glow: #FDE8CE;
+  --color-amber-rupee: #c8702a;
+  --color-amber-deep: #a85a20;
+  --color-amber-light: #f5e6d3;
+  --color-amber-glow: #fde8ce;
 
-  --color-gain: #1E7A47;
-  --color-gain-deep: #155A35;
-  --color-gain-light: #D4EDDF;
-  --color-gain-glow: #C2EDDA;
+  --color-gain: #1e7a47;
+  --color-gain-deep: #155a35;
+  --color-gain-light: #d4eddf;
+  --color-gain-glow: #c2edda;
 
-  --color-loss: #C0392B;
-  --color-loss-deep: #962D22;
-  --color-loss-light: #FAE0D8;
-  --color-loss-glow: #FCD5CC;
+  --color-loss: #c0392b;
+  --color-loss-deep: #962d22;
+  --color-loss-light: #fae0d8;
+  --color-loss-glow: #fcd5cc;
 
-  --color-info: #1A4E8C;
+  --color-info: #1a4e8c;
   --color-info-deep: #123870;
-  --color-info-light: #D4E4F5;
-  --color-info-glow: #C0D8F0;
+  --color-info-light: #d4e4f5;
+  --color-info-glow: #c0d8f0;
 
-  --color-surface: #FFFFFF;
-  --color-surface-raised: #FDFCFA;
-  --color-surface-subtle: #F5F2ED;
+  --color-surface: #ffffff;
+  --color-surface-raised: #fdfcfa;
+  --color-surface-subtle: #f5f2ed;
 
   /* Fonts */
-  --font-display: "DM Serif Display", serif;
-  --font-sans: "DM Sans", sans-serif;
-  --font-mono: "DM Mono", monospace;
+  --font-display: 'DM Serif Display', serif;
+  --font-sans: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
 
   /* Shadows */
-  --shadow-card: 0 1px 3px 0 rgba(24,22,18,0.06), 0 4px 16px 0 rgba(24,22,18,0.04);
-  --shadow-card-hover: 0 4px 12px 0 rgba(24,22,18,0.10), 0 16px 40px 0 rgba(24,22,18,0.08);
-  --shadow-metric: 0 2px 8px 0 rgba(24,22,18,0.07);
-  --shadow-panel: 0 0 0 1px rgba(24,22,18,0.08), 0 4px 20px 0 rgba(24,22,18,0.06);
-  --shadow-navbar: 0 1px 0 0 rgba(24,22,18,0.08);
+  --shadow-card: 0 1px 3px 0 rgba(24, 22, 18, 0.06), 0 4px 16px 0 rgba(24, 22, 18, 0.04);
+  --shadow-card-hover: 0 4px 12px 0 rgba(24, 22, 18, 0.1), 0 16px 40px 0 rgba(24, 22, 18, 0.08);
+  --shadow-metric: 0 2px 8px 0 rgba(24, 22, 18, 0.07);
+  --shadow-panel: 0 0 0 1px rgba(24, 22, 18, 0.08), 0 4px 20px 0 rgba(24, 22, 18, 0.06);
+  --shadow-navbar: 0 1px 0 0 rgba(24, 22, 18, 0.08);
 
   /* Border radius */
   --radius-3xl: 1.5rem;
   --radius-4xl: 2rem;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -65,7 +67,7 @@ html {
 
 body {
   margin: 0;
-  background-color: #FAF8F4;
+  background-color: #faf8f4;
   color: #181612;
   overflow-x: hidden;
   font-family: 'DM Sans', sans-serif;
@@ -99,7 +101,7 @@ input[type='range']::-webkit-slider-thumb {
   height: 18px;
   width: 18px;
   border-radius: 50%;
-  background: #C8702A;
+  background: #c8702a;
   cursor: pointer;
   border: 2px solid #fff;
   box-shadow: 0 1px 4px rgba(200, 112, 42, 0.4);
@@ -112,23 +114,23 @@ input[type='range']::-moz-range-thumb {
   height: 18px;
   width: 18px;
   border-radius: 50%;
-  background: #C8702A;
+  background: #c8702a;
   cursor: pointer;
   border: 2px solid #fff;
   box-shadow: 0 1px 4px rgba(200, 112, 42, 0.4);
 }
 input[type='range']::-webkit-slider-runnable-track {
   height: 4px;
-  background: linear-gradient(to right, #C8702A var(--range-progress, 50%), #E8E3DB var(--range-progress, 50%));
+  background: linear-gradient(to right, #c8702a var(--range-progress, 50%), #e8e3db var(--range-progress, 50%));
   border-radius: 99px;
 }
 input[type='range']::-moz-range-track {
   height: 4px;
-  background: #E8E3DB;
+  background: #e8e3db;
   border-radius: 99px;
 }
 input[type='range']::-moz-range-progress {
-  background: #C8702A;
+  background: #c8702a;
   height: 4px;
   border-radius: 99px;
 }
@@ -141,7 +143,7 @@ input[type='range']::-moz-range-progress {
 
 /* Focus ring */
 :focus-visible {
-  outline: 2px solid #C8702A;
+  outline: 2px solid #c8702a;
   outline-offset: 2px;
   border-radius: 4px;
 }
