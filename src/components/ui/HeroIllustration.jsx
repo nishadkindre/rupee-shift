@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { TrendingUp } from 'lucide-react';
 
 // FY 2025-26 approximate monthly USD/INR averages (Apr → Mar)
-const FY_RATES = [85.63, 84.52, 84.90, 84.06, 84.55, 84.48, 85.86, 86.59, 86.83, 87.51, 87.92, 93.83];
+const FY_RATES = [85.63, 84.52, 84.9, 84.06, 84.55, 84.48, 85.86, 86.59, 86.83, 87.51, 87.92, 93.83];
 
 const W = 316;
 const H = 152;
@@ -16,10 +16,7 @@ function buildChart() {
   const uw = W - PX * 2;
   const uh = H - PY * 2;
 
-  const pts = FY_RATES.map((r, i) => [
-    parseFloat((PX + (i / (FY_RATES.length - 1)) * uw).toFixed(2)),
-    parseFloat((PY + uh - ((r - lo) / span) * uh).toFixed(2)),
-  ]);
+  const pts = FY_RATES.map((r, i) => [parseFloat((PX + (i / (FY_RATES.length - 1)) * uw).toFixed(2)), parseFloat((PY + uh - ((r - lo) / span) * uh).toFixed(2))]);
 
   let line = `M${pts[0][0]} ${pts[0][1]}`;
   for (let i = 1; i < pts.length; i++) {
@@ -50,17 +47,17 @@ export default function HeroIllustration() {
         {/* Card header */}
         <div className="flex items-start justify-between mb-4">
           <div>
-            <p className="font-sans text-[10px] font-bold tracking-widest uppercase text-ink-light mb-1.5">
-              USD / INR · FY 2025–26
-            </p>
-            <p className="font-mono text-[30px] font-semibold text-ink-base leading-none tracking-tight">
-              ₹93.83
-            </p>
+            <p className="font-sans text-[10px] font-bold tracking-widest uppercase text-ink-light mb-1.5">USD / INR · FY 2025–26</p>
+            <p className="font-mono text-[30px] font-semibold text-ink-base leading-none tracking-tight">₹93.83</p>
           </div>
           <motion.div
             initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 2.1, duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
+            transition={{
+              delay: 2.1,
+              duration: 0.4,
+              ease: [0.34, 1.56, 0.64, 1]
+            }}
             className="flex items-center gap-1.5 bg-loss-light text-loss border border-loss/15 px-2.5 py-1.5 rounded-full"
           >
             <TrendingUp className="w-3.5 h-3.5" />
@@ -79,10 +76,11 @@ export default function HeroIllustration() {
             </defs>
 
             {/* Subtle dashed grid lines */}
-            {[0.33, 0.66].map((t) => (
+            {[0.33, 0.66].map(t => (
               <line
                 key={t}
-                x1={PX} x2={W - PX}
+                x1={PX}
+                x2={W - PX}
                 y1={parseFloat((PY + (H - PY * 2) * (1 - t)).toFixed(1))}
                 y2={parseFloat((PY + (H - PY * 2) * (1 - t)).toFixed(1))}
                 stroke="#181612"
@@ -110,22 +108,35 @@ export default function HeroIllustration() {
 
             {/* Start dot */}
             <motion.circle
-              cx={start[0]} cy={start[1]} r={4}
+              cx={start[0]}
+              cy={start[1]}
+              r={4}
               fill="#C8C3BC"
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
+              transition={{
+                delay: 0.4,
+                duration: 0.3,
+                ease: [0.34, 1.56, 0.64, 1]
+              }}
             />
 
             {/* End dot with pulse ring */}
             <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.2 }}>
               <motion.circle
-                cx={end[0]} cy={end[1]} r={8}
+                cx={end[0]}
+                cy={end[1]}
+                r={8}
                 fill="none"
                 stroke="#C8702A"
                 strokeWidth="1.5"
                 animate={{ r: [7, 15], opacity: [0.5, 0] }}
-                transition={{ duration: 1.6, repeat: Infinity, repeatDelay: 1.0, ease: 'easeOut' }}
+                transition={{
+                  duration: 1.6,
+                  repeat: Infinity,
+                  repeatDelay: 1.0,
+                  ease: 'easeOut'
+                }}
               />
               <circle cx={end[0]} cy={end[1]} r={5} fill="#C8702A" />
               <circle cx={end[0]} cy={end[1]} r={2} fill="white" />
@@ -160,9 +171,7 @@ export default function HeroIllustration() {
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
         className="absolute -top-9 -right-4 bg-white border border-ink-base/8 rounded-2xl px-3.5 py-2.5 shadow-[0_8px_24px_-6px_rgba(24,22,18,0.13)]"
       >
-        <p className="font-sans text-[9px] font-bold uppercase tracking-widest text-ink-light mb-0.5">
-          Break-Even Hike
-        </p>
+        <p className="font-sans text-[9px] font-bold uppercase tracking-widest text-ink-light mb-0.5">Break-Even Hike</p>
         <p className="font-mono text-[17px] font-semibold text-amber-rupee leading-none">+10.94%</p>
       </motion.div>
 
@@ -173,11 +182,7 @@ export default function HeroIllustration() {
         transition={{ delay: 1.0, duration: 0.5, ease: 'easeOut' }}
         className="absolute -bottom-4 left-6 bg-surface-subtle border border-ink-base/6 rounded-xl px-3 py-2 flex items-center gap-2 shadow-[0_4px_12px_-4px_rgba(24,22,18,0.08)]"
       >
-        <motion.div
-          className="w-1.5 h-1.5 rounded-full bg-gain shrink-0"
-          animate={{ opacity: [1, 0.3, 1] }}
-          transition={{ duration: 2.0, repeat: Infinity, ease: 'easeInOut' }}
-        />
+        <motion.div className="w-1.5 h-1.5 rounded-full bg-gain shrink-0" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 2.0, repeat: Infinity, ease: 'easeInOut' }} />
         <span className="font-sans text-[10px] text-ink-muted whitespace-nowrap">ECB · Daily fixing rates</span>
       </motion.div>
     </div>

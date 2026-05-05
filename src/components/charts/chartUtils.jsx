@@ -4,7 +4,7 @@ export const CHART_COLORS = {
   gain: '#2A7A52',
   loss: '#B84024',
   amber: '#C8702A',
-  line: '#1A1814',
+  line: '#1A1814'
 };
 
 export function CustomTooltip({ active, payload, label, formatValue }) {
@@ -14,10 +14,10 @@ export function CustomTooltip({ active, payload, label, formatValue }) {
       <p className="font-sans font-semibold text-ink mb-2 text-xs">{label}</p>
       {payload.map((entry, i) => (
         <div key={i} className="flex justify-between gap-4 text-xs">
-          <span style={{ color: entry.color }} className="font-sans">{entry.name}</span>
-          <span className="text-ink font-medium">
-            {formatValue ? formatValue(entry.value, entry.unit) : entry.value}
+          <span style={{ color: entry.color }} className="font-sans">
+            {entry.name}
           </span>
+          <span className="text-ink font-medium">{formatValue ? formatValue(entry.value, entry.unit) : entry.value}</span>
         </div>
       ))}
     </div>

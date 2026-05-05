@@ -5,11 +5,7 @@ import { VARIANTS, TRANSITIONS } from '../../utils/animations';
 export default function SectionCard({ children, className = '' }) {
   const { shouldAnimate } = useAnimation();
 
-  const inner = (
-    <div className={`bg-white border border-ink-base/8 rounded-2xl overflow-hidden shadow-card ${className}`}>
-      {children}
-    </div>
-  );
+  const inner = <div className={`bg-white border border-ink-base/8 rounded-2xl overflow-hidden shadow-card ${className}`}>{children}</div>;
 
   if (!shouldAnimate) return inner;
 

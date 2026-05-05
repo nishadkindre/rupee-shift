@@ -2,11 +2,7 @@ import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useAppContext } from '../../context/AppContext';
 import { FY_CONFIG } from '../../data/fyConfig';
-import {
-  calcINREmployee,
-  calcINREmployeeIncrement,
-  calcINREmployeeIncrementTable,
-} from '../../utils/calculations';
+import { calcINREmployee, calcINREmployeeIncrement, calcINREmployeeIncrementTable } from '../../utils/calculations';
 import { getFYMonthKeys } from '../../utils/rateHelpers';
 import { formatINR, formatUSD, formatRate, formatPct, monthKeyToLabel } from '../../utils/formatters';
 import { CHART_COLORS } from '../charts/chartUtils';
@@ -39,7 +35,7 @@ export default function INREmployeeScenario() {
       fyStartRate,
       fyEndRate,
       nextFYRate,
-      fyConfig,
+      fyConfig
     });
   }, [inrEmployeeParams, ratesData.monthlyAverages, fyStartRate, fyEndRate, nextFYRate, fyConfig]);
 
@@ -49,7 +45,7 @@ export default function INREmployeeScenario() {
       monthlyINR: inrEmployeeParams.monthlyINR,
       fyStartRate,
       nextFYRate,
-      incrementPct: inrEmployeeParams.incrementPct,
+      incrementPct: inrEmployeeParams.incrementPct
     });
   }, [inrEmployeeParams, fyStartRate, nextFYRate]);
 
@@ -59,7 +55,7 @@ export default function INREmployeeScenario() {
       monthlyINR: inrEmployeeParams.monthlyINR,
       fyStartRate,
       nextFYRate,
-      breakEvenPct: calc.breakEvenPct,
+      breakEvenPct: calc.breakEvenPct
     });
   }, [calc, inrEmployeeParams.monthlyINR, fyStartRate, nextFYRate]);
 
@@ -67,9 +63,7 @@ export default function INREmployeeScenario() {
   const startYear = fyConfig?.startDate?.slice(0, 4) || '2024';
   const endYear = fyConfig?.endDate?.slice(0, 4) || '2025';
 
-  const verdictColor = incrementResult
-    ? incrementResult.realUSDChange > 0.01 ? 'text-gain' : incrementResult.realUSDChange < -0.01 ? 'text-loss' : 'text-amber-rupee'
-    : 'text-ink';
+  const verdictColor = incrementResult ? (incrementResult.realUSDChange > 0.01 ? 'text-gain' : incrementResult.realUSDChange < -0.01 ? 'text-loss' : 'text-amber-rupee') : 'text-ink';
 
   const verdictText = incrementResult
     ? incrementResult.realUSDChange > 0.01
@@ -84,15 +78,45 @@ export default function INREmployeeScenario() {
       <div className="lg:w-[30%] lg:sticky lg:top-20 self-start">
         <ParamsPanel title="Scenario 4 of 4 · INR Employee">
           <ParamField label="Your monthly salary (₹)">
-            <ParamInput value={inrEmployeeParams.monthlyINR} onChange={v => dispatch({ type: 'UPDATE_INR_EMPLOYEE_PARAMS', payload: { monthlyINR: v } })} prefix="₹" min={0} />
+            <ParamInput
+              value={inrEmployeeParams.monthlyINR}
+              onChange={v =>
+                dispatch({
+                  type: 'UPDATE_INR_EMPLOYEE_PARAMS',
+                  payload: { monthlyINR: v }
+                })
+              }
+              prefix="₹"
+              min={0}
+            />
           </ParamField>
 
           <ParamField label="What company bills for you per month ($)" hint="Optional — enables pass-through analysis">
-            <ParamInput value={inrEmployeeParams.billingRate} onChange={v => dispatch({ type: 'UPDATE_INR_EMPLOYEE_PARAMS', payload: { billingRate: v } })} prefix="$" min={0} />
+            <ParamInput
+              value={inrEmployeeParams.billingRate}
+              onChange={v =>
+                dispatch({
+                  type: 'UPDATE_INR_EMPLOYEE_PARAMS',
+                  payload: { billingRate: v }
+                })
+              }
+              prefix="$"
+              min={0}
+            />
           </ParamField>
 
           <ParamField label="Projected rate next FY (₹/$)">
-            <ParamInput value={nextFYRate} onChange={v => dispatch({ type: 'UPDATE_INR_EMPLOYEE_PARAMS', payload: { nextFYRate: v } })} suffix="₹/$" min={0} />
+            <ParamInput
+              value={nextFYRate}
+              onChange={v =>
+                dispatch({
+                  type: 'UPDATE_INR_EMPLOYEE_PARAMS',
+                  payload: { nextFYRate: v }
+                })
+              }
+              suffix="₹/$"
+              min={0}
+            />
           </ParamField>
 
           <SliderControl
@@ -100,7 +124,12 @@ export default function INREmployeeScenario() {
             min={0}
             max={30}
             value={inrEmployeeParams.incrementPct}
-            onChange={v => dispatch({ type: 'UPDATE_INR_EMPLOYEE_PARAMS', payload: { incrementPct: v } })}
+            onChange={v =>
+              dispatch({
+                type: 'UPDATE_INR_EMPLOYEE_PARAMS',
+                payload: { incrementPct: v }
+              })
+            }
           />
         </ParamsPanel>
       </div>
@@ -109,12 +138,15 @@ export default function INREmployeeScenario() {
         <div>
           <p className="font-sans text-xs font-semibold tracking-widest uppercase text-ink-light mb-1">Scenario 4 of 4</p>
           <h2 className="font-display text-2xl md:text-3xl tracking-tight text-ink">INR Employee</h2>
-          <p className="font-sans text-sm text-ink-muted mt-1">You earn a fixed INR salary while your employer bills clients in USD. Your labour got more valuable in dollar terms — but your pay packet didn't change.</p>
+          <p className="font-sans text-sm text-ink-muted mt-1">
+            You earn a fixed INR salary while your employer bills clients in USD. Your labour got more valuable in dollar terms — but your pay packet didn't change.
+          </p>
         </div>
 
         <InsightBanner>
-          The dollar moved <strong className="font-mono">{formatPct(calc.fyAppreciationPct, { showSign: true })}</strong> in {fyConfig?.label}.
-          You need a <strong className="font-mono text-amber-rupee">{formatPct(calc.breakEvenPct)}</strong> INR raise just to earn the same in USD as you did in April {startYear}. Anything less is a real pay cut.
+          The dollar moved <strong className="font-mono">{formatPct(calc.fyAppreciationPct, { showSign: true })}</strong> in {fyConfig?.label}. You need a{' '}
+          <strong className="font-mono text-amber-rupee">{formatPct(calc.breakEvenPct)}</strong> INR raise just to earn the same in USD as you did in April {startYear}. Anything less is a real pay
+          cut.
         </InsightBanner>
 
         {/* Erosion Card */}
@@ -122,10 +154,8 @@ export default function INREmployeeScenario() {
           <p className="font-display text-lg text-loss mb-2">USD Erosion</p>
           <p className="font-sans text-sm text-ink leading-relaxed">
             By March {endYear}, your <strong className="font-mono">{formatINR(inrEmployeeParams.monthlyINR)}</strong> salary was worth{' '}
-            <strong className="font-mono text-loss">{formatUSD(calc.marchUSDValue)}/month</strong> — down from{' '}
-            <strong className="font-mono">{formatUSD(calc.fyStartUSDSalary)}</strong> in April {startYear}.
-            Over the full year, your salary lost{' '}
-            <strong className="font-mono text-loss">{formatUSD(calc.annualUSDLoss)}</strong> in cumulative USD value.
+            <strong className="font-mono text-loss">{formatUSD(calc.marchUSDValue)}/month</strong> — down from <strong className="font-mono">{formatUSD(calc.fyStartUSDSalary)}</strong> in April{' '}
+            {startYear}. Over the full year, your salary lost <strong className="font-mono text-loss">{formatUSD(calc.annualUSDLoss)}</strong> in cumulative USD value.
           </p>
         </div>
 
@@ -169,7 +199,9 @@ export default function INREmployeeScenario() {
                 <thead>
                   <tr className="bg-cream-dark">
                     {['Month', 'Rate (₹/$)', 'INR Salary', 'USD Value', 'Baseline USD', 'Erosion this month', 'Cumulative Erosion'].map(h => (
-                      <th key={h} className={`${h === 'Month' ? 'text-left' : 'text-right'} px-3 py-2 font-sans text-xs font-semibold text-ink-light uppercase tracking-wider`}>{h}</th>
+                      <th key={h} className={`${h === 'Month' ? 'text-left' : 'text-right'} px-3 py-2 font-sans text-xs font-semibold text-ink-light uppercase tracking-wider`}>
+                        {h}
+                      </th>
                     ))}
                   </tr>
                 </thead>
@@ -209,23 +241,43 @@ export default function INREmployeeScenario() {
         <div className="mt-2">
           <p className="font-sans text-xs font-semibold tracking-widest uppercase text-ink-light mb-2">Increment Analysis</p>
           <InsightBanner>
-            You need a <strong className="font-mono text-amber-rupee">{formatPct(calc.breakEvenPct)}</strong> INR raise just to earn the same in USD as you did in April {startYear}. Anything less is a real pay cut.
+            You need a <strong className="font-mono text-amber-rupee">{formatPct(calc.breakEvenPct)}</strong> INR raise just to earn the same in USD as you did in April {startYear}. Anything less is a
+            real pay cut.
           </InsightBanner>
 
           <div className="mt-4 bg-white border border-ink-light/20 rounded-2xl p-5">
-            <SliderControl label="Your INR increment %" min={0} max={30} value={inrEmployeeParams.incrementPct} onChange={v => dispatch({ type: 'UPDATE_INR_EMPLOYEE_PARAMS', payload: { incrementPct: v } })} />
+            <SliderControl
+              label="Your INR increment %"
+              min={0}
+              max={30}
+              value={inrEmployeeParams.incrementPct}
+              onChange={v =>
+                dispatch({
+                  type: 'UPDATE_INR_EMPLOYEE_PARAMS',
+                  payload: { incrementPct: v }
+                })
+              }
+            />
 
             {/* Real-time verdict */}
-            {incrementResult && (
-              <p className={`font-sans text-sm font-semibold mt-4 ${verdictColor}`}>{verdictText}</p>
-            )}
+            {incrementResult && <p className={`font-sans text-sm font-semibold mt-4 ${verdictColor}`}>{verdictText}</p>}
 
             {incrementResult && (
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
                 <MetricCard label="New INR Salary" value={incrementResult.newMonthlyINR} formatter={v => formatINR(v)} variant="info" />
                 <MetricCard label="USD Value" value={incrementResult.newUSDValue} formatter={v => formatUSD(v)} variant={incrementResult.realUSDChange >= 0 ? 'gain' : 'loss'} />
-                <MetricCard label="vs FY Start USD" value={incrementResult.realUSDChange} formatter={v => formatUSD(v, { showSign: true })} variant={incrementResult.realUSDChange >= 0 ? 'gain' : 'loss'} />
-                <MetricCard label="Real Outcome" value={incrementResult.realUSDChangePct} formatter={v => formatPct(v, { showSign: true })} variant={incrementResult.realUSDChange >= 0 ? 'gain' : 'loss'} />
+                <MetricCard
+                  label="vs FY Start USD"
+                  value={incrementResult.realUSDChange}
+                  formatter={v => formatUSD(v, { showSign: true })}
+                  variant={incrementResult.realUSDChange >= 0 ? 'gain' : 'loss'}
+                />
+                <MetricCard
+                  label="Real Outcome"
+                  value={incrementResult.realUSDChangePct}
+                  formatter={v => formatPct(v, { showSign: true })}
+                  variant={incrementResult.realUSDChange >= 0 ? 'gain' : 'loss'}
+                />
               </div>
             )}
           </div>
@@ -239,7 +291,12 @@ export default function INREmployeeScenario() {
                   <thead>
                     <tr className="bg-cream-dark">
                       {['Increment %', 'New INR salary', 'USD value', 'vs $baseline', 'Real USD change', 'Verdict'].map(h => (
-                        <th key={h} className={`${h === 'Increment %' || h === 'New INR salary' ? 'text-left' : h === 'Verdict' ? 'text-center' : 'text-right'} px-3 py-2 font-sans text-xs font-semibold text-ink-light uppercase tracking-wider`}>{h}</th>
+                        <th
+                          key={h}
+                          className={`${h === 'Increment %' || h === 'New INR salary' ? 'text-left' : h === 'Verdict' ? 'text-center' : 'text-right'} px-3 py-2 font-sans text-xs font-semibold text-ink-light uppercase tracking-wider`}
+                        >
+                          {h}
+                        </th>
                       ))}
                     </tr>
                   </thead>
@@ -247,13 +304,18 @@ export default function INREmployeeScenario() {
                     {incrementTable.map((row, i) => (
                       <tr key={i} className={`${row.isBreakEven ? 'bg-info-light/50' : row.verdict === 'paycut' ? 'bg-loss-light/20' : i % 2 === 0 ? '' : 'bg-cream/50'}`}>
                         <td className="px-3 py-2 font-medium text-ink">
-                          {row.isBreakEven ? '★ ' : ''}{formatPct(row.pct, { decimals: row.isBreakEven ? 2 : 0 })}
+                          {row.isBreakEven ? '★ ' : ''}
+                          {formatPct(row.pct, {
+                            decimals: row.isBreakEven ? 2 : 0
+                          })}
                         </td>
                         <td className="px-3 py-2">{formatINR(row.newMonthlyINR)}</td>
                         <td className="px-3 py-2 text-right">{formatUSD(row.newUSDValue)}</td>
                         <td className={`px-3 py-2 text-right font-medium ${row.realUSDChange >= 0 ? 'text-gain' : 'text-loss'}`}>{formatUSD(row.realUSDChange, { showSign: true })}</td>
                         <td className={`px-3 py-2 text-right font-medium ${row.realUSDChangePct >= 0 ? 'text-gain' : 'text-loss'}`}>{formatPct(row.realUSDChangePct, { showSign: true })}</td>
-                        <td className="px-3 py-2 text-center"><StatusTag variant={row.verdict} /></td>
+                        <td className="px-3 py-2 text-center">
+                          <StatusTag variant={row.verdict} />
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -274,8 +336,14 @@ export default function INREmployeeScenario() {
                   <MetricCard label="Cost to break-even you" value={calc.passThroughData.breakEvenCostToCompany} formatter={v => formatINR(v, { compact: true })} variant="amber" />
                 </div>
                 <p className="font-sans text-xs text-ink-muted mt-3 leading-relaxed">
-                  At break-even increment of <strong className="font-mono text-amber-rupee">{formatPct(calc.breakEvenPct)}</strong>, it would cost the company <strong className="font-mono">{formatINR(calc.passThroughData.breakEvenCostToCompany, { compact: true })}</strong>/year to make your USD purchasing power whole — which is{' '}
-                  <strong className="font-mono">{formatPct(calc.passThroughData.passThroughRatio)}</strong> of the company's annual FX windfall.
+                  At break-even increment of <strong className="font-mono text-amber-rupee">{formatPct(calc.breakEvenPct)}</strong>, it would cost the company{' '}
+                  <strong className="font-mono">
+                    {formatINR(calc.passThroughData.breakEvenCostToCompany, {
+                      compact: true
+                    })}
+                  </strong>
+                  /year to make your USD purchasing power whole — which is <strong className="font-mono">{formatPct(calc.passThroughData.passThroughRatio)}</strong> of the company's annual FX
+                  windfall.
                 </p>
               </div>
             </SectionCard>

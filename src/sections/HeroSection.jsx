@@ -40,7 +40,7 @@ export default function HeroSection() {
       sub: `Apr ${startYear}`,
       icon: <Activity className="w-4 h-4" />,
       color: 'text-ink-base',
-      bg: 'bg-surface-subtle',
+      bg: 'bg-surface-subtle'
     },
     {
       id: 'end',
@@ -49,7 +49,7 @@ export default function HeroSection() {
       sub: `Mar ${endYear}`,
       icon: <Activity className="w-4 h-4" />,
       color: 'text-ink-base',
-      bg: 'bg-surface-subtle',
+      bg: 'bg-surface-subtle'
     },
     {
       id: 'move',
@@ -58,7 +58,7 @@ export default function HeroSection() {
       sub: isDepreciation ? 'Rupee weakened' : 'Rupee strengthened',
       icon: isDepreciation ? <TrendingDown className="w-4 h-4" /> : <TrendingUp className="w-4 h-4" />,
       color: isDepreciation ? 'text-loss' : 'text-gain',
-      bg: isDepreciation ? 'bg-loss-light' : 'bg-gain-light',
+      bg: isDepreciation ? 'bg-loss-light' : 'bg-gain-light'
     },
     {
       id: 'breakeven',
@@ -67,8 +67,8 @@ export default function HeroSection() {
       sub: 'Needed to hold USD value',
       icon: <TrendingUp className="w-4 h-4" />,
       color: 'text-amber-rupee',
-      bg: 'bg-amber-light',
-    },
+      bg: 'bg-amber-light'
+    }
   ];
 
   return (
@@ -79,81 +79,80 @@ export default function HeroSection() {
 
       <div className="relative max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center">
-        <div>
-        {/* Eyebrow badge */}
-        <motion.div
-          variants={VARIANTS.fadeUp}
-          initial="hidden"
-          animate="visible"
-          transition={{ ...TRANSITIONS.normal, delay: 0.05 }}
-          className="inline-flex items-center gap-2 bg-amber-light border border-amber-rupee/20 text-amber-rupee font-sans text-xs font-semibold px-3.5 py-1.5 rounded-full mb-6 tracking-wide"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-amber-rupee animate-pulse" />
-          FY {startYear}–{endYear} · USD/INR Impact Analysis
-        </motion.div>
-
-        {/* Headline */}
-        <motion.h1
-          variants={VARIANTS.fadeUp}
-          initial="hidden"
-          animate="visible"
-          transition={{ ...TRANSITIONS.slow, delay: 0.1 }}
-          className="font-display text-4xl md:text-6xl tracking-tight text-ink-base leading-[1.1] mb-5 max-w-3xl"
-        >
-          The dollar moved.
-          <br />
-          <span className="text-amber-rupee italic">Did</span> your numbers?
-        </motion.h1>
-
-        {/* Sub-copy */}
-        <motion.p
-          variants={VARIANTS.fadeUp}
-          initial="hidden"
-          animate="visible"
-          transition={{ ...TRANSITIONS.normal, delay: 0.2 }}
-          className="font-sans text-base text-ink-muted leading-relaxed max-w-2xl mb-10"
-        >
-          RupeeShift quantifies exactly how USD/INR exchange rate movement in{' '}
-          <span className="text-ink-base font-medium">{fyConfig?.label}</span> affected your costs, revenues, or salary — in real rupee and dollar terms.
-          {fyStartRate && fyEndRate && (
-            <> The rupee moved from <span className="font-mono font-medium text-ink-base">{formatRate(fyStartRate)}</span> to{' '}
-            <span className="font-mono font-medium text-ink-base">{formatRate(fyEndRate)}</span> — a shift most people felt but couldn't quantify.</>
-          )}
-        </motion.p>
-
-        {/* Stats grid */}
-        <motion.div
-          variants={VARIANTS.fadeUp}
-          initial="hidden"
-          animate="visible"
-          transition={{ ...TRANSITIONS.normal, delay: 0.28 }}
-          className="grid grid-cols-2 gap-3"
-        >
-          {stats.map((stat, i) => (
+          <div>
+            {/* Eyebrow badge */}
             <motion.div
-              key={stat.id}
-              initial={shouldAnimate ? { opacity: 0, y: 16 } : {}}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 + i * 0.06, duration: 0.4, ease: 'easeOut' }}
-              className="bg-white rounded-2xl border border-ink-base/8 p-4 flex flex-col gap-2 shadow-card hover:shadow-card-hover transition-shadow duration-200"
+              variants={VARIANTS.fadeUp}
+              initial="hidden"
+              animate="visible"
+              transition={{ ...TRANSITIONS.normal, delay: 0.05 }}
+              className="inline-flex items-center gap-2 bg-amber-light border border-amber-rupee/20 text-amber-rupee font-sans text-xs font-semibold px-3.5 py-1.5 rounded-full mb-6 tracking-wide"
             >
-              <div className={`inline-flex items-center gap-1.5 ${stat.color} ${stat.bg} rounded-lg px-2 py-1 w-fit`}>
-                {stat.icon}
-                <span className="font-sans text-xs font-semibold">{stat.label}</span>
-              </div>
-              <p className={`font-mono text-lg md:text-xl font-semibold ${stat.color} leading-tight`}>
-                {stat.value}
-              </p>
-              <p className="font-sans text-xs text-ink-light">{stat.sub}</p>
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-rupee animate-pulse" />
+              FY {startYear}–{endYear} · USD/INR Impact Analysis
             </motion.div>
-          ))}
-        </motion.div>
-        </div>
 
-        {/* Right: Illustration */}
-        <div className="hidden lg:flex items-center justify-center py-10">
-          <HeroIllustration />
-        </div>
+            {/* Headline */}
+            <motion.h1
+              variants={VARIANTS.fadeUp}
+              initial="hidden"
+              animate="visible"
+              transition={{ ...TRANSITIONS.slow, delay: 0.1 }}
+              className="font-display text-4xl md:text-6xl tracking-tight text-ink-base leading-[1.1] mb-5 max-w-3xl"
+            >
+              The dollar moved.
+              <br />
+              <span className="text-amber-rupee italic">Did</span> your numbers?
+            </motion.h1>
+
+            {/* Sub-copy */}
+            <motion.p
+              variants={VARIANTS.fadeUp}
+              initial="hidden"
+              animate="visible"
+              transition={{ ...TRANSITIONS.normal, delay: 0.2 }}
+              className="font-sans text-base text-ink-muted leading-relaxed max-w-2xl mb-10"
+            >
+              RupeeShift quantifies exactly how USD/INR exchange rate movement in <span className="text-ink-base font-medium">{fyConfig?.label}</span> affected your costs, revenues, or salary — in
+              real rupee and dollar terms.
+              {fyStartRate && fyEndRate && (
+                <>
+                  {' '}
+                  The rupee moved from <span className="font-mono font-medium text-ink-base">{formatRate(fyStartRate)}</span> to{' '}
+                  <span className="font-mono font-medium text-ink-base">{formatRate(fyEndRate)}</span> — a shift most people felt but couldn't quantify.
+                </>
+              )}
+            </motion.p>
+
+            {/* Stats grid */}
+            <motion.div variants={VARIANTS.fadeUp} initial="hidden" animate="visible" transition={{ ...TRANSITIONS.normal, delay: 0.28 }} className="grid grid-cols-2 gap-3">
+              {stats.map((stat, i) => (
+                <motion.div
+                  key={stat.id}
+                  initial={shouldAnimate ? { opacity: 0, y: 16 } : {}}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 0.3 + i * 0.06,
+                    duration: 0.4,
+                    ease: 'easeOut'
+                  }}
+                  className="bg-white rounded-2xl border border-ink-base/8 p-4 flex flex-col gap-2 shadow-card hover:shadow-card-hover transition-shadow duration-200"
+                >
+                  <div className={`inline-flex items-center gap-1.5 ${stat.color} ${stat.bg} rounded-lg px-2 py-1 w-fit`}>
+                    {stat.icon}
+                    <span className="font-sans text-xs font-semibold">{stat.label}</span>
+                  </div>
+                  <p className={`font-mono text-lg md:text-xl font-semibold ${stat.color} leading-tight`}>{stat.value}</p>
+                  <p className="font-sans text-xs text-ink-light">{stat.sub}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Right: Illustration */}
+          <div className="hidden lg:flex items-center justify-center py-10">
+            <HeroIllustration />
+          </div>
         </div>
       </div>
     </section>

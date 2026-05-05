@@ -46,12 +46,17 @@ export function useExchangeRates(fyKey) {
     } catch (err) {
       // Use fallback data
       const fallbackRates = fyConfig.fallbackRates || {};
-      const fyStartRate = Object.values(fallbackRates)[0] || 83.00;
+      const fyStartRate = Object.values(fallbackRates)[0] || 83.0;
       const fyEndRateArr = Object.values(fallbackRates);
       const fyEndRate = fyEndRateArr[fyEndRateArr.length - 1] || fyStartRate;
       dispatch({
         type: 'SET_RATES_SUCCESS',
-        payload: { dailyRates: {}, monthlyAverages: fallbackRates, fyStartRate, fyEndRate },
+        payload: {
+          dailyRates: {},
+          monthlyAverages: fallbackRates,
+          fyStartRate,
+          fyEndRate
+        }
       });
       dispatch({ type: 'SET_RATES_ERROR', payload: err.message });
     }

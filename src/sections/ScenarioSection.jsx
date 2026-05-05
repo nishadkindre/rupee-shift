@@ -14,7 +14,7 @@ const SCENARIO_COMPONENTS = {
   subsidiary: SubsidiaryScenario,
   itExporter: ITExporterScenario,
   freelancer: FreelancerScenario,
-  inrEmployee: INREmployeeScenario,
+  inrEmployee: INREmployeeScenario
 };
 
 export default function ScenarioSection() {
@@ -31,12 +31,8 @@ export default function ScenarioSection() {
       {/* Section header */}
       <div className="mb-8">
         <p className="font-sans text-xs font-bold tracking-wider uppercase text-ink-light mb-2">Analysis Scenarios</p>
-        <h2 className="font-display text-2xl md:text-3xl text-ink-base tracking-tight">
-          Pick your role, see your numbers
-        </h2>
-        <p className="font-sans text-sm text-ink-muted mt-2 max-w-xl">
-          Each scenario isolates a different way USD/INR movement affects real finances. Adjust parameters to match your situation.
-        </p>
+        <h2 className="font-display text-2xl md:text-3xl text-ink-base tracking-tight">Pick your role, see your numbers</h2>
+        <p className="font-sans text-sm text-ink-muted mt-2 max-w-xl">Each scenario isolates a different way USD/INR movement affects real finances. Adjust parameters to match your situation.</p>
       </div>
 
       <ScenarioTabs />
@@ -48,22 +44,11 @@ export default function ScenarioSection() {
           </div>
         )}
 
-        {ratesData.error && !ratesData.loading && (
-          <ErrorBanner
-            message={`Could not fetch live rates: ${ratesData.error}. Using estimated rates.`}
-          />
-        )}
+        {ratesData.error && !ratesData.loading && <ErrorBanner message={`Could not fetch live rates: ${ratesData.error}. Using estimated rates.`} />}
 
         <AnimatePresence mode="wait">
           {!ratesData.loading && (
-            <motion.div
-              key={activeScenario}
-              variants={VARIANTS.fadeUp}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              transition={TRANSITIONS.normal}
-            >
+            <motion.div key={activeScenario} variants={VARIANTS.fadeUp} initial="hidden" animate="visible" exit="hidden" transition={TRANSITIONS.normal}>
               {ActiveScenario && <ActiveScenario />}
             </motion.div>
           )}

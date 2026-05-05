@@ -2,12 +2,7 @@ import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useAppContext } from '../../context/AppContext';
 import { FY_CONFIG } from '../../data/fyConfig';
-import {
-  calcITExporter,
-  calcITExporterHike,
-  calcITExporterHikeTable,
-  calcContractRenewalTable,
-} from '../../utils/calculations';
+import { calcITExporter, calcITExporterHike, calcITExporterHikeTable, calcContractRenewalTable } from '../../utils/calculations';
 import { getFYMonthKeys } from '../../utils/rateHelpers';
 import { formatINR, formatUSD, formatRate, formatPct, monthKeyToLabel } from '../../utils/formatters';
 import { CHART_COLORS } from '../charts/chartUtils';
@@ -40,7 +35,7 @@ export default function ITExporterScenario() {
       fyStartRate,
       fyEndRate,
       nextFYRate,
-      fyConfig,
+      fyConfig
     });
   }, [itExporterParams, ratesData.monthlyAverages, fyStartRate, fyEndRate, nextFYRate, fyConfig]);
 
@@ -49,7 +44,7 @@ export default function ITExporterScenario() {
     return calcITExporterHike({
       annualINRCost: itExporterParams.annualINRCost,
       fxGainINR: calc.fxGainINR,
-      hikePct: itExporterParams.hikePct,
+      hikePct: itExporterParams.hikePct
     });
   }, [calc, itExporterParams]);
 
@@ -57,7 +52,7 @@ export default function ITExporterScenario() {
     if (!calc) return [];
     return calcITExporterHikeTable({
       annualINRCost: itExporterParams.annualINRCost,
-      fxGainINR: calc.fxGainINR,
+      fxGainINR: calc.fxGainINR
     });
   }, [calc, itExporterParams.annualINRCost]);
 
@@ -67,7 +62,7 @@ export default function ITExporterScenario() {
       annualUSD: itExporterParams.annualUSD,
       fyStartRate,
       nextFYRate,
-      baselineAnnualINR: calc.baselineAnnualINR,
+      baselineAnnualINR: calc.baselineAnnualINR
     });
   }, [calc, itExporterParams.annualUSD, fyStartRate, nextFYRate]);
 
@@ -79,15 +74,45 @@ export default function ITExporterScenario() {
       <div className="lg:w-[30%] lg:sticky lg:top-20 self-start">
         <ParamsPanel title="Scenario 2 of 4 · IT Exporter">
           <ParamField label="Annual USD revenue ($)" hint="Total contract / billing revenue">
-            <ParamInput value={itExporterParams.annualUSD} onChange={v => dispatch({ type: 'UPDATE_IT_EXPORTER_PARAMS', payload: { annualUSD: v } })} prefix="$" min={0} />
+            <ParamInput
+              value={itExporterParams.annualUSD}
+              onChange={v =>
+                dispatch({
+                  type: 'UPDATE_IT_EXPORTER_PARAMS',
+                  payload: { annualUSD: v }
+                })
+              }
+              prefix="$"
+              min={0}
+            />
           </ParamField>
 
           <ParamField label="Annual INR cost base (₹)" hint="Salaries, rent, operations">
-            <ParamInput value={itExporterParams.annualINRCost} onChange={v => dispatch({ type: 'UPDATE_IT_EXPORTER_PARAMS', payload: { annualINRCost: v } })} prefix="₹" min={0} />
+            <ParamInput
+              value={itExporterParams.annualINRCost}
+              onChange={v =>
+                dispatch({
+                  type: 'UPDATE_IT_EXPORTER_PARAMS',
+                  payload: { annualINRCost: v }
+                })
+              }
+              prefix="₹"
+              min={0}
+            />
           </ParamField>
 
           <ParamField label="Projected rate for next FY (₹/$)">
-            <ParamInput value={nextFYRate} onChange={v => dispatch({ type: 'UPDATE_IT_EXPORTER_PARAMS', payload: { nextFYRate: v } })} suffix="₹/$" min={0} />
+            <ParamInput
+              value={nextFYRate}
+              onChange={v =>
+                dispatch({
+                  type: 'UPDATE_IT_EXPORTER_PARAMS',
+                  payload: { nextFYRate: v }
+                })
+              }
+              suffix="₹/$"
+              min={0}
+            />
           </ParamField>
 
           <SliderControl
@@ -95,7 +120,12 @@ export default function ITExporterScenario() {
             min={0}
             max={30}
             value={itExporterParams.hikePct}
-            onChange={v => dispatch({ type: 'UPDATE_IT_EXPORTER_PARAMS', payload: { hikePct: v } })}
+            onChange={v =>
+              dispatch({
+                type: 'UPDATE_IT_EXPORTER_PARAMS',
+                payload: { hikePct: v }
+              })
+            }
           />
         </ParamsPanel>
       </div>
@@ -112,8 +142,8 @@ export default function ITExporterScenario() {
           <strong className="font-mono text-gain">{formatINR(calc.actualAnnualINR, { compact: true })}</strong> in INR this year —{' '}
           <strong className="font-mono text-gain">{formatINR(calc.fxGainINR, { compact: true })}</strong> more than the{' '}
           <strong className="font-mono">{formatINR(calc.baselineAnnualINR, { compact: true })}</strong> baseline at the April {startYear} rate of{' '}
-          <strong className="font-mono">{formatRate(fyStartRate)}</strong>. This{' '}
-          <strong className="font-mono">{formatPct(calc.fxGainPct, { showSign: true })}</strong> FX uplift required no new business or pricing change.
+          <strong className="font-mono">{formatRate(fyStartRate)}</strong>. This <strong className="font-mono">{formatPct(calc.fxGainPct, { showSign: true })}</strong> FX uplift required no new
+          business or pricing change.
         </InsightBanner>
 
         <motion.div variants={VARIANTS.staggerContainer} initial="hidden" animate="visible" className="grid grid-cols-2 lg:grid-cols-4 gap-3">
@@ -156,7 +186,9 @@ export default function ITExporterScenario() {
                 <thead>
                   <tr className="bg-cream-dark">
                     {['Month', 'Rate (₹/$)', 'USD received', 'INR realised', 'Baseline INR', 'FX Gain (₹)', 'Cumulative'].map(h => (
-                      <th key={h} className={`${h === 'Month' ? 'text-left' : 'text-right'} px-3 py-2 font-sans text-xs font-semibold text-ink-light uppercase tracking-wider`}>{h}</th>
+                      <th key={h} className={`${h === 'Month' ? 'text-left' : 'text-right'} px-3 py-2 font-sans text-xs font-semibold text-ink-light uppercase tracking-wider`}>
+                        {h}
+                      </th>
                     ))}
                   </tr>
                 </thead>
@@ -197,14 +229,24 @@ export default function ITExporterScenario() {
           <p className="font-sans text-xs font-semibold tracking-widest uppercase text-ink-light mb-2">Employee Hike Analysis</p>
           <InsightBanner>
             Your FX tailwind on the same <strong className="font-mono">{formatUSD(itExporterParams.annualUSD, { compact: true })}</strong> contract delivered{' '}
-            <strong className="font-mono text-gain">{formatINR(calc.fxGainINR, { compact: true })}</strong> more INR this year. At{' '}
-            <strong className="font-mono">{itExporterParams.hikePct}%</strong> salary hike,{' '}
-            <strong className="font-mono text-amber-rupee">{hikeResult ? formatPct(hikeResult.fxFundedPortion) : '—'}</strong>{' '}
-            of that cost increase is funded by dollar appreciation alone.
+            <strong className="font-mono text-gain">{formatINR(calc.fxGainINR, { compact: true })}</strong> more INR this year. At <strong className="font-mono">{itExporterParams.hikePct}%</strong>{' '}
+            salary hike, <strong className="font-mono text-amber-rupee">{hikeResult ? formatPct(hikeResult.fxFundedPortion) : '—'}</strong> of that cost increase is funded by dollar appreciation
+            alone.
           </InsightBanner>
 
           <div className="mt-4 bg-white border border-ink-light/20 rounded-2xl p-5">
-            <SliderControl label="Employee salary hike %" min={0} max={30} value={itExporterParams.hikePct} onChange={v => dispatch({ type: 'UPDATE_IT_EXPORTER_PARAMS', payload: { hikePct: v } })} />
+            <SliderControl
+              label="Employee salary hike %"
+              min={0}
+              max={30}
+              value={itExporterParams.hikePct}
+              onChange={v =>
+                dispatch({
+                  type: 'UPDATE_IT_EXPORTER_PARAMS',
+                  payload: { hikePct: v }
+                })
+              }
+            />
             {hikeResult && (
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
                 <MetricCard label="FX Gain (INR)" value={calc.fxGainINR} formatter={v => formatINR(v, { compact: true })} variant="gain" />
@@ -224,7 +266,12 @@ export default function ITExporterScenario() {
                   <thead>
                     <tr className="bg-cream-dark">
                       {['Hike %', 'INR Payroll Increase', 'FX Covers (%)', 'Net Margin Change', 'Verdict'].map(h => (
-                        <th key={h} className={`${h === 'Hike %' ? 'text-left' : h === 'Verdict' ? 'text-center' : 'text-right'} px-3 py-2 font-sans text-xs font-semibold text-ink-light uppercase tracking-wider`}>{h}</th>
+                        <th
+                          key={h}
+                          className={`${h === 'Hike %' ? 'text-left' : h === 'Verdict' ? 'text-center' : 'text-right'} px-3 py-2 font-sans text-xs font-semibold text-ink-light uppercase tracking-wider`}
+                        >
+                          {h}
+                        </th>
                       ))}
                     </tr>
                   </thead>
@@ -235,7 +282,9 @@ export default function ITExporterScenario() {
                         <td className="px-3 py-2 text-right">{formatINR(row.hikeCostINR, { compact: true })}</td>
                         <td className="px-3 py-2 text-right text-amber-rupee">{formatPct(row.fxFundedPortion)}</td>
                         <td className={`px-3 py-2 text-right font-medium ${row.netMarginImpact >= 0 ? 'text-gain' : 'text-loss'}`}>{formatINR(row.netMarginImpact, { compact: true })}</td>
-                        <td className="px-3 py-2 text-center"><StatusTag variant={row.verdict} /></td>
+                        <td className="px-3 py-2 text-center">
+                          <StatusTag variant={row.verdict} />
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -254,7 +303,9 @@ export default function ITExporterScenario() {
                   <thead>
                     <tr className="bg-cream-dark">
                       {['USD Change', 'New USD Contract', 'INR at Next FY', 'vs FY Start INR', 'Effective INR Growth'].map(h => (
-                        <th key={h} className={`${h === 'USD Change' ? 'text-left' : 'text-right'} px-3 py-2 font-sans text-xs font-semibold text-ink-light uppercase tracking-wider`}>{h}</th>
+                        <th key={h} className={`${h === 'USD Change' ? 'text-left' : 'text-right'} px-3 py-2 font-sans text-xs font-semibold text-ink-light uppercase tracking-wider`}>
+                          {h}
+                        </th>
                       ))}
                     </tr>
                   </thead>

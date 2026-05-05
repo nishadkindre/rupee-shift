@@ -40,7 +40,10 @@ export default function ExportButton({ onExportExcel, onExportCSV }) {
             className="absolute right-0 mt-2 w-52 bg-white border border-ink-base/10 rounded-2xl shadow-card-hover overflow-hidden z-50"
           >
             <button
-              onClick={() => { onExportExcel?.(); setOpen(false); }}
+              onClick={() => {
+                onExportExcel?.();
+                setOpen(false);
+              }}
               className="flex items-center gap-3 w-full px-4 py-3 text-sm text-ink-base hover:bg-surface-subtle font-sans text-left transition-colors"
             >
               <div className="w-7 h-7 rounded-lg bg-gain-light flex items-center justify-center shrink-0">
@@ -49,7 +52,10 @@ export default function ExportButton({ onExportExcel, onExportCSV }) {
               <span>Export as Excel</span>
             </button>
             <button
-              onClick={() => { onExportCSV?.(); setOpen(false); }}
+              onClick={() => {
+                onExportCSV?.();
+                setOpen(false);
+              }}
               className="flex items-center gap-3 w-full px-4 py-3 text-sm text-ink-base hover:bg-surface-subtle font-sans text-left border-t border-ink-base/6 transition-colors"
             >
               <div className="w-7 h-7 rounded-lg bg-info-light flex items-center justify-center shrink-0">
@@ -63,4 +69,3 @@ export default function ExportButton({ onExportExcel, onExportCSV }) {
     </div>
   );
 }
-

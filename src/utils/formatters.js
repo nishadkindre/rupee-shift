@@ -27,7 +27,7 @@ export function formatUSD(value, options = {}) {
   }
   return `${sign}$${absValue.toLocaleString('en-US', {
     minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
+    maximumFractionDigits: decimals
   })}`;
 }
 

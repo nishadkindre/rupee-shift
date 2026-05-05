@@ -28,13 +28,7 @@ export default function ParamsPanel({ children, title = 'Parameters' }) {
 
         <AnimatePresence>
           {mobileOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={TRANSITIONS.normal}
-              className="overflow-hidden"
-            >
+            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={TRANSITIONS.normal} className="overflow-hidden">
               <div className="mt-2 bg-white border border-ink-base/8 rounded-2xl p-5 shadow-card">
                 <PanelContent title={title}>{children}</PanelContent>
               </div>
@@ -78,9 +72,7 @@ export function ParamField({ label, children, hint }) {
 export function ParamInput({ value, onChange, prefix, suffix, min, step = 'any', type = 'number' }) {
   return (
     <div className="relative flex items-center">
-      {prefix && (
-        <span className="absolute left-3.5 font-mono text-sm text-ink-muted pointer-events-none select-none">{prefix}</span>
-      )}
+      {prefix && <span className="absolute left-3.5 font-mono text-sm text-ink-muted pointer-events-none select-none">{prefix}</span>}
       <input
         type={type}
         value={value}
@@ -89,9 +81,7 @@ export function ParamInput({ value, onChange, prefix, suffix, min, step = 'any',
         onChange={e => onChange(type === 'number' ? parseFloat(e.target.value) || 0 : e.target.value)}
         className={`w-full font-mono text-sm bg-surface-subtle border border-ink-base/12 rounded-xl py-2.5 focus:outline-none focus:border-amber-rupee focus:ring-2 focus:ring-amber-rupee/20 text-ink-base transition-all duration-150 ${prefix ? 'pl-9 pr-3' : 'px-3.5'} ${suffix ? 'pr-12' : ''}`}
       />
-      {suffix && (
-        <span className="absolute right-3.5 font-mono text-sm text-ink-muted pointer-events-none select-none">{suffix}</span>
-      )}
+      {suffix && <span className="absolute right-3.5 font-mono text-sm text-ink-muted pointer-events-none select-none">{suffix}</span>}
     </div>
   );
 }

@@ -18,10 +18,7 @@ export default function ErrorBanner({ message, onRetry }) {
         <p className="font-sans text-xs text-loss/80 mt-0.5">{message || 'Showing approximate fallback values.'}</p>
       </div>
       {onRetry && (
-        <button
-          onClick={onRetry}
-          className="font-sans text-xs font-semibold text-loss border border-loss/30 rounded-lg px-3 py-1 hover:bg-loss/10 focus:outline-none focus:ring-2 focus:ring-loss"
-        >
+        <button onClick={onRetry} className="font-sans text-xs font-semibold text-loss border border-loss/30 rounded-lg px-3 py-1 hover:bg-loss/10 focus:outline-none focus:ring-2 focus:ring-loss">
           Retry
         </button>
       )}

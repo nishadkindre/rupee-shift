@@ -13,11 +13,10 @@ export default function Navbar({ onProject, onMethodology, onAbout, onExportExce
   return (
     <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-ink-base/8 h-16 flex items-center px-4 md:px-8" style={{ boxShadow: '0 1px 0 0 rgba(24,22,18,0.07)' }}>
       <div className="max-w-7xl mx-auto w-full flex items-center justify-between gap-4">
-
         {/* Logo + Wordmark */}
         <a href="#top" className="flex items-end gap-2 group shrink-0" aria-label="RupeeShift home">
           {/* <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-rupee to-amber-deep flex items-center justify-center shadow-sm"> */}
-            <RupeeShiftLogo size={28} className="text-white" />
+          <RupeeShiftLogo size={28} className="text-white" />
           {/* </div> */}
           <span className="font-sans text-xl font-semibold tracking-tight text-ink-base">
             Rupee<span className="text-amber-rupee">Shift</span>
@@ -26,9 +25,7 @@ export default function Navbar({ onProject, onMethodology, onAbout, onExportExce
 
         {/* Desktop nav links */}
         <div className="hidden md:flex items-center gap-1">
-          <NavLink onClick={() => document.getElementById('scenarios')?.scrollIntoView({ behavior: 'smooth' })}>
-            Scenarios
-          </NavLink>
+          <NavLink onClick={() => document.getElementById('scenarios')?.scrollIntoView({ behavior: 'smooth' })}>Scenarios</NavLink>
           {/* <NavLink onClick={onAbout}>Project</NavLink> */}
           <NavLink onClick={onMethodology}>Methodology</NavLink>
           <NavLink onClick={onProject}>About</NavLink>
@@ -64,10 +61,31 @@ export default function Navbar({ onProject, onMethodology, onAbout, onExportExce
             transition={TRANSITIONS.fast}
             className="absolute top-16 left-0 right-0 bg-white border-b border-ink-base/8 px-4 py-3 flex flex-col gap-1 shadow-lg"
           >
-            <MobileNavLink onClick={() => { document.getElementById('scenarios')?.scrollIntoView({ behavior: 'smooth' }); setMobileOpen(false); }}>Scenarios</MobileNavLink>
+            <MobileNavLink
+              onClick={() => {
+                document.getElementById('scenarios')?.scrollIntoView({ behavior: 'smooth' });
+                setMobileOpen(false);
+              }}
+            >
+              Scenarios
+            </MobileNavLink>
             {/* <MobileNavLink onClick={() => { onAbout?.(); setMobileOpen(false); }}>Project</MobileNavLink> */}
-            <MobileNavLink onClick={() => { onMethodology?.(); setMobileOpen(false); }}>Methodology</MobileNavLink>
-            <MobileNavLink onClick={() => { onProject?.(); setMobileOpen(false); }}>About</MobileNavLink>
+            <MobileNavLink
+              onClick={() => {
+                onMethodology?.();
+                setMobileOpen(false);
+              }}
+            >
+              Methodology
+            </MobileNavLink>
+            <MobileNavLink
+              onClick={() => {
+                onProject?.();
+                setMobileOpen(false);
+              }}
+            >
+              About
+            </MobileNavLink>
           </motion.div>
         )}
       </AnimatePresence>
@@ -88,10 +106,7 @@ function NavLink({ children, onClick }) {
 
 function MobileNavLink({ children, onClick }) {
   return (
-    <button
-      onClick={onClick}
-      className="font-sans text-sm font-medium text-ink-muted hover:text-ink-base text-left px-3 py-2.5 rounded-lg hover:bg-surface-subtle transition-colors w-full"
-    >
+    <button onClick={onClick} className="font-sans text-sm font-medium text-ink-muted hover:text-ink-base text-left px-3 py-2.5 rounded-lg hover:bg-surface-subtle transition-colors w-full">
       {children}
     </button>
   );
