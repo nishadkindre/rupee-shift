@@ -248,15 +248,15 @@ export default function ProjectModal({ onClose }) {
 
         {/* Footer */}
         <div className="border-t border-cream-dark px-6 py-3 flex items-center justify-between rounded-b-2xl shrink-0">
-          <p className="font-sans text-xs text-ink-muted">Built by <a href="mailto:nishadkindre@gmail.com" className="text-amber-rupee hover:text-amber-light">Nishad Kindre</a></p>
-          <a
+          <p className="font-sans text-xs text-ink-muted">Built by <a href="mailto:nishadkindre@gmail.com" className="text-amber-rupee hover:text-amber-800">Nishad Kindre</a></p>
+          {/* <a
             href="https://rupee-shift.vercel.app"
             target="_blank"
             rel="noopener noreferrer"
             className="font-sans text-xs text-amber-rupee hover:text-amber-light transition-colors"
           >
             rupee-shift.vercel.app ↗
-          </a>
+          </a> */}
         </div>
       </motion.div>
     </div>
